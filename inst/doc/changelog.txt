@@ -1,0 +1,44 @@
+v0.8-3
+2010-06-04
+- added: CNVtools as suggested package (Kurt Hornik message)
+
+v0.8-2
+2010-06-04
+- MAIN CHANGE: package submitted to CRAN
+- Ramon's comments and suggestions included
+- fixed some bugs in print.summary.CNVassoc
+
+v0.8-1
+2010-05-13
+- MAIN CHANGE: cnv function incorporates batch effect
+- changed: getQualityScore functions
+
+v0.8-0
+2010-04-14
+- MAIN CHANGE: Right censored Weibull distribution has been included to association model
+- added: new function to simulate time-to-event study (right censored weibull) and CNVs
+
+v0.7-0
+2010-01-29
+- MAIN CHANGE: Poisson distribution has been included to model counts
+- MAIN CHANGE: new function (plotSignal) to make calling manually using 'locator' 
+- added: new function to check whether calling has been performed correctly
+- added: new function to simulate case-control study and CNVs
+- change: several functions (see newFunctions.zip) have been modified to address the new main changes
+
+v0.6-0
+2009-12-14
+- changed mixture.r function to allow user to perform calling step using 'locator' option (after Gaelle's comments)
+- changed plot.cnv to differenciate cases and controls
+
+v0.5-4
+2009-09-01
+- changed how to compute p-values in anova and CNVtest (use lower.tail=FALSE instead of 1-pchiq)
+
+v0.5-3
+2009-07-24
+- fixed CNVassoc function to allow factor variables
+
+v0.5-2
+2009-06-25
+- fixed some bugs in 'mix.r' and 'classCNV.R' functions
