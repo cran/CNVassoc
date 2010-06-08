@@ -50,7 +50,6 @@ function (x, my.colors = c("black", "red", "blue"), ylab = "Peak Intensity", xla
           stop("case.control must have 2 differents values at least")
         }
         if (length(tt) > 2) {
-          x.ord<<-x.ord
           plot(case.control, xx, col = my.colors[x.ord], ylim = ll, yaxs="i", xlab = xlab[2], ylab = ylab, ...)
         }
         if (length(tt) == 2) {

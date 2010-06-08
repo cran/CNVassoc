@@ -8,7 +8,7 @@ Simulation of CNV in a case-control study design
 This function simulates intensity for a CNV within cases and control groups for different scenarios
 }
 \usage{
-simCNVdataCaseCon(n0, n1, w0, or, mu.surrog0, sd.surrog0, mu.surrog1 = mu.surrog0, sd.surrog1 = sd.surrog0, cnv.random = FALSE)
+simCNVdataCaseCon(n0, n1, w0, or, mu.surrog0, sd.surrog0, mu.surrog1 = mu.surrog0, sd.surrog1 = sd.surrog0, random = TRUE)
 }
 
 
@@ -21,7 +21,7 @@ simCNVdataCaseCon(n0, n1, w0, or, mu.surrog0, sd.surrog0, mu.surrog1 = mu.surrog
   \item{sd.surrog0}{vector of standard deviations of CNV intensity signal, per copy number status, in control group}
   \item{mu.surrog1}{vector of means of CNV intensity signal, per copy number status, in control group}
   \item{sd.surrog1}{vector of standard deviations of CNV intensity signal, per copy number status, in control group}
-  \item{cnv.random}{A logical value. TRUE means that copy number status is drawn under a multinomial distribution with proportions indicated by 'w'. FALSE means that the real simulated frequency is always the same and is rounded to the most similar integer to the frequencies indicated by 'w'. Default value is FALSE}
+  \item{random}{A logical value. TRUE means that individuals (rows) are randomly permuted, and FALSE means that simulated 'data.frame' contains controls first and then cases. Default value is TRUE}
 }
 
 \value{
@@ -51,7 +51,8 @@ maf<-0.3
 set.seed(123)
 simData<-simCNVdataCaseCon(n0=1000, n1=1000, mu.surrog0=c(0,0.5,1), sd.surrog0=rep(0.15,3), 
          mu.surrog1=c(0,0.5,1), sd.surrog1=rep(0.15,3), 
-         w0=c((1-maf)^2,2*maf*(1-maf), maf^2), or=c(1.3,1.3^2), cnv.random = FALSE)
+         w0=c((1-maf)^2,2*maf*(1-maf), maf^2), or=c(1.3,1.3^2),  
+         random = FALSE)
 CNV<-cnv(simData$surrog,mix.method="EMmixt")
 getQualityScore(CNV,type="CNVtools")
 mod<-CNVassoc(resp~CNV,data=simData,family="binomial")

@@ -23,11 +23,10 @@ function (x, num.copies, num.class, cnv.tol = 0.001, mix.method = "mixdist", che
           out <- as.integer(cut(x,c(-Inf,cutoffs,Inf)))
           k <- length(cutoffs) + 1
           if (missing(num.copies))
-            num.copies <- 0:k-1
-          attr(out, "probabilities") <- sapply(1:k, function(j) ifelse(out==j,1,0))
+            num.copies <- 0:(k-1)
+          attr(out, "probabilities") <- sapply(1:k, function(j) ifelse(out == j, 1,0 ))
         }
-    }
-    else {
+    } else {
         if (NCOL(x) > 1) {
             rs <- apply(x, 1, sum)
             if (check.probs)
@@ -54,7 +53,6 @@ function (x, num.copies, num.class, cnv.tol = 0.001, mix.method = "mixdist", che
     out <- attr(out, "num.copies")[out]
     attributes(out) <- attr.old
     class(out) <- "cnv"
-    out <<- out
     if (check.cnv)
       if (!is.null(attr(out,"meanRatio")))
         if (!checkCNV(out,check.alpha)){

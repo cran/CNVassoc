@@ -1,3 +1,8 @@
+v0.8-4
+2010-06-08
+- changed: cnv function for 'locator' 
+- changed: help files for SimDataCaseControl
+
 v0.8-3
 2010-06-04
 - added: CNVtools as suggested package (Kurt Hornik message)

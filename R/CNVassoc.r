@@ -39,7 +39,7 @@ CNVassoc <- function (formula, data, subset, na.action, model = "multiplicative"
     mm <- model.matrix(mt, mf, contrasts)
     varPos <- which(colnames(mm) == nameCNV)
     var <- mf[, control]
-    y <<- mf[, 1]
+    y <- mf[, 1]
     nVar <- NCOL(mf) - 2
     if (nVar != 0) {
         Xcov <- mm[, -c(1, varPos), drop = FALSE]

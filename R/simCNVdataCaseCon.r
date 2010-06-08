@@ -1,4 +1,4 @@
-simCNVdataCaseCon <- function (n0,n1, w0, or, mu.surrog0, sd.surrog0, mu.surrog1=mu.surrog0, sd.surrog1=sd.surrog0, cnv.random=FALSE)
+simCNVdataCaseCon <- function (n0,n1, w0, or, mu.surrog0, sd.surrog0, mu.surrog1=mu.surrog0, sd.surrog1=sd.surrog0, random=TRUE)
 {
     k <- length(w0)
     w0 <- w0/sum(w0)
@@ -11,6 +11,6 @@ simCNVdataCaseCon <- function (n0,n1, w0, or, mu.surrog0, sd.surrog0, mu.surrog1
     cnv0 <- rep(1:k, r0)
     cnv1 <- rep(1:k, r1)
     out <- data.frame(resp=rep(0:1,c(n0,n1)), cnv=c(cnv0,cnv1), surrog = c(s0,s1))
-    if (cnv.random) out <- out[sample(1:nrow(out)), ]
+    if (random) out <- out[sample(1:nrow(out)), ]
     out
 }
