@@ -4,6 +4,7 @@
 \usepackage[pdftex]{color,graphicx,epsfig}
 \DeclareGraphicsRule{.pdftex}{pdf}{.pdftex}{}
 \usepackage{amssymb,amsmath}
+%\usepackage[latin1]{inputenc}
 
 
 
@@ -988,7 +989,6 @@ under an scenario where the power to decect associated CNV is 90\% if no inferri
 %%%%%%%%%%%% SNP TEST DATA %%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Imputed data (SNPTEST format)}
 
-%% falta posar alguna cosa sobre que tamb� es pot analitzar el CANARY data format ???....
 
 In this section we will show how \texttt{CNVassoc} can also be used to analyse SNP data when the SNPs have been imputed or
 genotyped with some degree of error. Notice that the same procedure can be applied to analyze data from Birdsuite/Canary software
