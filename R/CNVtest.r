@@ -34,7 +34,7 @@ function (x, type = "Wald")
             cc - 1
         else 1
     }
-    pvalue <- pchisq(stat, df, lower = FALSE)
+    pvalue <- pchisq(stat, df, lower.tail = FALSE)
     out <- list(type = type.test, stat = stat, df = df, pvalue = pvalue)
     class(out) <- "CNVtest"
     out

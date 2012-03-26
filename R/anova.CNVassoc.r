@@ -22,7 +22,7 @@ anova.CNVassoc<-function(object,...){
   chi<-as.double(abs(chi))
   df<-logLik(mod1)[2]-logLik(mod2)[2]
   df<-as.integer(abs(df))
-  pvalue<-pchisq(abs(chi),abs(df),lower=FALSE)
+  pvalue<-pchisq(abs(chi),abs(df),lower.tail=FALSE)
 
   out<-c("chi"=chi,"df"=df,"pvalue"=pvalue)
   
