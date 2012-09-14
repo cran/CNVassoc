@@ -12,13 +12,14 @@ See vignette for further details.
 }
 
 \usage{
-getProbsRegions(probs,regions,intensities)
+getProbsRegions(probs,regions,intensities,nclass=3)
 }
 
 \arguments{
   \item{probs}{probabilities from CGH calling algorithms}
   \item{regions}{probs that define a segment}
   \item{intensities}{mean probe intensities for each region}
+  \item{nclass}{See 'nclass' argument of function \code{\link[CGHcall]{CGHcall}}}
 }
 
 

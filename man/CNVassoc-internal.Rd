@@ -46,7 +46,7 @@ plot.cnv.intensities(x, my.colors = c("black", "red", "blue"), ylab = "Peak Inte
 plot.cnv.probabilities(x, my.colors = c("black", "red", "blue"), case.control, ylab = "CNV probability", xlab, ...)
 vector2matrix(betav, variant, J)
 is.quantitative(formula, data)
-getProbsRegions.i(i, blocks, probs, annotation)
+getProbsRegions.i(i, blocks, probs, annotation, nclass)
 plapply(X, FUN, ...)
 }
 

@@ -58,6 +58,9 @@ directly from the \texttt{CNVassoc} package. Finally, we show examples with Pois
 \noindent Start by loading the package \texttt{CNVassoc}:
 
 
+<<echo=F>>=
+options(width=120)
+@
 
 <<echo=T>>=
 library(CNVassoc)
@@ -137,7 +140,7 @@ plotSignal(dataMLPA$Gene2,case.control=dataMLPA$casco)
 
 \noindent or, similarly but correlating the peak intensities with a quantitative phenotype (see figure \ref{fig-plotSignalquanti}) type
 <<echo=T>>=
-plotSignal(dataMLPA$Gene2,case.control=dataMLPA$quanti)
+plotSignal(dataMLPA$Gene2, case.control = dataMLPA$quanti)
 @
 
 
@@ -161,7 +164,7 @@ in order to infer the copy number status in a naive way. (More sophisticated way
 
 \begin{verbatim}
 \dontrun{
-cutpoints<-plotSignal(dataMLPA$Gene2,case.control=dataMLPA$casco,n=2)
+cutpoints <- plotSignal(dataMLPA$Gene2, case.control = dataMLPA$casco, n = 2)
 }
 \end{verbatim}
 
@@ -220,7 +223,8 @@ Function {\tt cnv} provides various arguments to cope with all these issues. The
 
 
 <<echo=T>>=
-CNV.1<-cnv(x=dataMLPA$Gene1, threshold.0=0.06, num.class=3, mix.method = "mixdist")
+CNV.1 <- cnv(x = dataMLPA$Gene1, threshold.0 = 0.06, num.class = 3, 
+mix.method = "mixdist")
 @
 
 
@@ -236,7 +240,7 @@ the function uses the Bayesian Information Criteria (BIC) to select the number o
 %
 
 <<echo=T>>=
-CNV.2<-cnv(x=dataMLPA$Gene2, threshold.0=0.01, mix.method = "mixdist")
+CNV.2 <- cnv(x = dataMLPA$Gene2, threshold.0 = 0.01, mix.method = "mixdist")
 @
 
 %
@@ -259,7 +263,7 @@ Thus the probability matrix can be saved in an object \texttt{probs.2} like this
 
 
 <<echo=T>>=
-probs.2<-getProbs(CNV.2)
+probs.2 <- getProbs(CNV.2)
 @
 
 
@@ -269,7 +273,7 @@ Imagine that \texttt{probs.2} contains posterior probabilities obtained from som
 %
 
 <<echo=T>>=
-CNV.2probs<-cnv(probs.2)
+CNV.2probs <- cnv(probs.2)
 @
 
 
@@ -280,7 +284,7 @@ Inferring copy number status for Gene 2 from previously specified threshold poin
 the same \texttt{cnv} function but setting the argument \texttt{cutoffs} to \texttt{cutpoints}.
 
 <<echo=T>>=
-CNV.2th<-cnv(x=dataMLPA$Gene2, cutoffs=cutpoints)
+CNV.2th <- cnv(x = dataMLPA$Gene2, cutoffs = cutpoints)
 @
 
 Now, the inferred copy number object \texttt{CNV.2th} contains the same information as it would if it had been created directly from probabilities. 
@@ -319,10 +323,10 @@ Figure \ref{fig-MLPAcnv} shows the result of invoking the generic {\tt plot} fun
 
 <<echo=T>>=
 pdf("./figures/fig2a.pdf")
-plot(CNV.1, case.control=dataMLPA$casco, main="Gene 1")
+plot(CNV.1, case.control = dataMLPA$casco, main = "Gene 1")
 dev.off()
 pdf("./figures/fig2b.pdf")
-plot(CNV.2, case.control=dataMLPA$casco, main="Gene 2")
+plot(CNV.2, case.control = dataMLPA$casco, main = "Gene 2")
 dev.off()
 @
 
@@ -384,8 +388,8 @@ To choose PGC method type
 %
 
 <<echo=T>>=
-CNVassoc::getQualityScore(CNV.1,type="class")
-CNVassoc::getQualityScore(CNV.2,type="class")
+CNVassoc::getQualityScore(CNV.1, type = "class")
+CNVassoc::getQualityScore(CNV.2, type = "class")
 @
 
 %
@@ -393,8 +397,8 @@ To choose the measure defined in the \texttt{CNVtools} package:
 %
 
 <<echo=T>>=
-CNVassoc::getQualityScore(CNV.1,type="CNVtools")
-CNVassoc::getQualityScore(CNV.2,type="CNVtools")
+CNVassoc::getQualityScore(CNV.1, type = "CNVtools")
+CNVassoc::getQualityScore(CNV.2, type = "CNVtools")
 @
 
 %
@@ -402,8 +406,8 @@ And to choose the third measure:
 %
 
 <<echo=T>>=
-CNVassoc::getQualityScore(CNV.1,type="CANARY")
-CNVassoc::getQualityScore(CNV.2,type="CANARY")
+CNVassoc::getQualityScore(CNV.1, type = "CANARY")
+CNVassoc::getQualityScore(CNV.2, type = "CANARY")
 @
 
 
@@ -441,8 +445,8 @@ The effect of a given CNV on case/control status (\texttt{casco} variable) can b
 
 
 <<echo=T>>=
-model1mul<-CNVassoc(casco~CNV.1,data=dataMLPA,model="mul")
-model2mul<-CNVassoc(casco~CNV.2,data=dataMLPA,model="mul")
+model1mul <- CNVassoc(casco ~ CNV.1, data = dataMLPA, model = "mul")
+model2mul <- CNVassoc(casco ~ CNV.2, data = dataMLPA, model = "mul")
 @
 
 
@@ -498,7 +502,8 @@ The following example presents the case of analyzing a quantitative normally dis
 
 
 <<echo=T,keep.source=TRUE>>=
-mod<-CNVassoc(quanti ~ CNV.2 + cov, family = "gaussian", data = dataMLPA, model = 'add', emsteps=10)
+mod <- CNVassoc(quanti ~ CNV.2 + cov, family = "gaussian", 
+data = dataMLPA, model = 'add', emsteps = 10)
 mod
 @
 
@@ -528,8 +533,8 @@ to \texttt{"Wald"} or \texttt{"LRT"}, respectively. For Gene 1,
 
 
 <<echo=T>>=
-CNVtest(model1mul,type="Wald")
-CNVtest(model1mul,type="LRT")
+CNVtest(model1mul, type = "Wald")
+CNVtest(model1mul, type = "LRT")
 @
 
 %
@@ -537,8 +542,8 @@ and for Gene 2,
 %
 
 <<echo=T>>=
-CNVtest(model2mul,type="Wald")
-CNVtest(model2mul,type="LRT")
+CNVtest(model2mul, type = "Wald")
+CNVtest(model2mul, type = "LRT")
 @
 
 %
@@ -551,7 +556,7 @@ as the reference category just type:
 
 
 <<echo=T>>=
-coef(summary(model1mul,ref=2))
+coef(summary(model1mul, ref = 2))
 @
 
 
@@ -561,7 +566,7 @@ The same kind of results can be obtained if we assume an additive effect of CNV 
 
 
 <<echo=T>>=
-model2add<-CNVassoc(casco~CNV.2, data=dataMLPA, model="add")
+model2add <- CNVassoc(casco ~ CNV.2, data = dataMLPA, model = "add")
 model2add
 @
 
@@ -587,7 +592,7 @@ the {\tt CNVassoc} function).
 
 
 <<echo=T>>=
-anova(model2mul,model2add)
+anova(model2mul, model2add)
 @
 
 
@@ -636,8 +641,8 @@ The second component is a vector with the phenotype analyzed (strogen receptor p
 
 <<echo=T>>=
 data(NeveData)
-intensities<-NeveData$data
-pheno<-NeveData$pheno
+intensities <- NeveData$data
+pheno <- NeveData$pheno
 @
 
 %
@@ -654,22 +659,23 @@ Neve <- cghRaw(intensities)
 ######################################################
 ### chunk number 2: Preprocessing
 ######################################################
-cghdata <- preprocess(Neve, maxmiss=30, nchrom=22)
+cghdata <- preprocess(Neve, maxmiss = 30, nchrom = 22)
 
 ######################################################
 ### chunk number 3: Normalization
 ######################################################
-norm.cghdata <- normalize(cghdata, method="median", smoothOutliers=TRUE)
+norm.cghdata <- normalize(cghdata, method = "median", smoothOutliers = TRUE)
 
 ######################################################
 ### chunk number 4: Segmentation
 ######################################################
-seg.cghdata <- segmentData(norm.cghdata, method="DNAcopy")
+seg.cghdata <- segmentData(norm.cghdata, method = "DNAcopy")
 
 ######################################################
 ### chunk number 5: Calling
 ######################################################
-NeveCalled <- CGHcall(seg.cghdata)
+NeveCalled <- CGHcall(seg.cghdata, nclass = 3)
+NeveCalled <- ExpandCGHcall(NeveCalled, seg.cghdata)
 }
 \end{verbatim}
 %
@@ -687,7 +693,7 @@ probabilities corresponding to each of these three statuses. This is done by exe
 %
 
 <<echo=T>>=
-probs<-getProbs(NeveCalled)
+probs <- getProbs(NeveCalled)
 @
 
 %
@@ -695,7 +701,7 @@ This is a dataframe that looks like this:
 %
 
 <<echo=T>>=
-probs[1:5,1:7]
+probs[1:5, 1:7]
 @
 
 %
@@ -726,7 +732,7 @@ Now we have to get the posterior probabilities for each block/region. This can b
 %
 
 <<echo=T>>=
-probsRegions<-getProbsRegions(probs, NeveRegions, intensities)
+probsRegions <- getProbsRegions(probs, NeveRegions, intensities)
 @
 
 %
@@ -735,8 +741,8 @@ function. This function repeatedly calls {\tt CNVassoc} returning the p-value of
 %
 
 <<echo=T>>=
-pvals<-multiCNVassoc(probsRegions, formula="pheno~CNV",
-model="mult", num.copies=0:2, cnv.tol=0.01)
+pvals <- multiCNVassoc(probsRegions, formula = "pheno ~ CNV", model = "mult", 
+num.copies = 0:2, cnv.tol = 0.01)
 @
 
 %
@@ -747,7 +753,7 @@ Multiple comparisons can be addressed by using the Benjamini \& Hochberg approac
 %
 
 <<echo=T>>=
-pvalsBH<-getPvalBH(pvals)
+pvalsBH <- getPvalBH(pvals)
 head(pvalsBH)
 @
 
@@ -756,7 +762,7 @@ Table 6 in \cite{GonSubEsc09} can be obtained by typing
 %
 
 <<echo=T>>=
-cumsum(table(cut(pvalsBH[,2],c(-Inf,1e-5,1e-4,1e-3,1e-2,0.05))))
+cumsum(table(cut(pvalsBH[, 2], c(-Inf, 1e-5, 1e-4, 1e-3, 1e-2, 0.05))))
 @
 %
 
@@ -824,12 +830,14 @@ In the article on \texttt{CNVtools} \cite{CNVtools} it is suggested not to use t
 ncomp <- 3
 batches <- factor(A112$cohort)
 sample <- factor(A112$subject)
-fit.pca <- CNVtest.binary(signal = pca.signal, sample = sample, batch = batches, ncomp = ncomp, n.H0 = 3, n.H1 = 0, model.var = "~ strata(cn)")
+fit.pca <- CNVtest.binary(signal = pca.signal, sample = sample, 
+batch = batches, ncomp = ncomp, n.H0 = 3, n.H1 = 0, model.var = "~ strata(cn)")
 @
 
 \noindent and after this, a linear discriminant analysis on raw signal data and these probabilities is performed
 <<echo=TRUE>>=
-pca.posterior <- as.matrix((fit.pca$posterior.H0)[, paste("P", seq(1:ncomp), sep = "")])
+pca.posterior <- as.matrix((fit.pca$posterior.H0)[, paste("P", 
+seq(1:ncomp), sep = "")])
 dimnames(pca.posterior)[[1]] <- (fit.pca$posterior.H0)$subject
 ldf.signal <- apply.ldf(raw.signal, pca.posterior)
 @
@@ -845,7 +853,7 @@ A possible batch effect in inferring copy number status has been considered, as 
 Therefore, and in order to better mimic the example as presented in CNVtools vignette \cite{CNVtools-vignette}, 
 copy number status is inferred taking into account the batches, simply by incorporating an argument to function \texttt{cnv}, called \texttt{batches}:
 <<echo=TRUE, keep.source=TRUE>>=
-CNV<-cnv(ldf.signal, batches=batches, num.class=3, mix="mclust")
+CNV <- cnv(ldf.signal, batches = batches, num.class = 3, mix = "mclust")
 CNV
 @
 
@@ -887,8 +895,10 @@ CNVtest(fit,"LRT")
 
 <<echo=FALSE>>=
 # by default CNVtest.binary assumes: model.var = "~ strata(batch, cn)", model.disease = "~ cn" (trend CNV effect, and different vars per batch).
-fit.cnvtools <- CNVtest.binary(signal=ldf.signal,sample=sample,batch=batches,disease.status=trait,ncomp=ncomp,n.H0=3,n.H1=1,model.var="~cn")
-chi.cnvtools  <-  -2*(fit.cnvtools$model.H0$lnL-fit.cnvtools$model.H1$lnL)
+fit.cnvtools <- CNVtest.binary(signal = ldf.signal, sample = sample, 
+batch = batches, disease.status = trait, ncomp = ncomp, n.H0 = 3, n.H1 = 1,
+model.var = "~cn")
+chi.cnvtools <- -2*(fit.cnvtools$model.H0$lnL - fit.cnvtools$model.H1$lnL)
 @
 
 This results in a $\chi^2 =$ \Sexpr{round(CNVtest(fit,"LRT")$stat,2)} which does not differ greatly from the one given 
@@ -897,12 +907,14 @@ in CNVtools vignette \cite{CNVtools-vignette} (\Sexpr{round(chi.cnvtools,2)}), n
 And if a multiplicative model is assumed, 
 <<echo=TRUE>>=
 fit <- CNVassoc(trait ~ CNV)
-CNVtest(fit,"LRT")
+CNVtest(fit, "LRT")
 @
 
 <<echo=FALSE>>=
-fit.cnvtools <- CNVtest.binary(signal=ldf.signal,sample=sample,batch=batches,disease.status=trait,ncomp=3,n.H0=3,n.H1=1,model.disease="~as.factor(cn)")
-chi.cnvtools  <-  -2*(fit.cnvtools$model.H0$lnL-fit.cnvtools$model.H1$lnL)
+fit.cnvtools <- CNVtest.binary(signal = ldf.signal, sample = sample,
+batch = batches, disease.status = trait,ncomp = 3, n.H0 = 3, n.H1 = 1,
+model.disease = "~as.factor(cn)")
+chi.cnvtools  <- -2*(fit.cnvtools$model.H0$lnL - fit.cnvtools$model.H1$lnL)
 @
 
 \noindent a $\chi^2$ of \Sexpr{round(CNVtest(fit,"LRT")$stat,2)} is obtained, similar to that in CNVtools-vignette \cite{CNVtools-vignette} 
@@ -1053,11 +1065,13 @@ The goal is to have one matrix of probabilities with 3 columns corresponding to 
 for each of the 100 SNPs.
 
 <<echo=TRUE>>=
-nSNP<-nrow(cases)
-probs<-lapply(1:nSNP, function(i) {
-  snpi.cases<-matrix(as.double(cases[i,6:ncol(cases)]),ncol=3,byrow=TRUE)
-  snpi.controls<-matrix(as.double(controls[i,6:ncol(controls)]),ncol=3,byrow=TRUE)
-  return(rbind(snpi.cases,snpi.controls))
+nSNP <- nrow(cases)
+probs <- lapply(1:nSNP, function(i) {
+  snpi.cases <- matrix(as.double(cases[i, 6:ncol(cases)]), ncol = 3,
+byrow = TRUE)
+  snpi.controls <- matrix(as.double(controls[i, 6:ncol(controls)]),
+ncol = 3, byrow = TRUE)
+  return(rbind(snpi.cases, snpi.controls))
 })
 @
 
@@ -1068,24 +1082,25 @@ In this point, we can use \texttt{multiCNVassoc} as shown in section \ref{sectio
 test of each SNP with case control status.
 But first, a casecontrol variable must be defined, which, in this example, will be a simple vector of 500 ones and 500 zeros.
 <<echo=TRUE>>=
-casecon<-rep(1:0,c(500,500))
+casecon <- rep(1:0, c(500, 500))
 @
 
 Now, we have the data ready to fit a model. For example, to compute the association p-value between every SNP and case control status
 assuming an additive effect:
 <<echo=TRUE>>=
-pvals<-multiCNVassoc(probs, formula="casecon~CNV",model="add", num.copies=0:2, cnv.tol=0.001)
+pvals <- multiCNVassoc(probs, formula = "casecon~CNV", model = "add",
+num.copies = 0:2, cnv.tol = 0.001)
 @
 
 And, as in section \ref{section-CNV from aCGH}, it is necessary to correct for multiple tests:
 <<echo=T>>=
-pvalsBH<-getPvalBH(pvals)
+pvalsBH <- getPvalBH(pvals)
 head(pvalsBH)
 @
 
 A frecuency tabulation of how many SNP achieve different levels of significance is obtained by:
 <<echo=T>>=
-table(cut(pvalsBH[,2],c(-Inf,1e-3,1e-2,0.05,0.1,Inf)))
+table(cut(pvalsBH[, 2], c(-Inf, 1e-3, 1e-2, 0.05, 0.1, Inf)))
 @
 
 From these results, no SNP appears to be associated with case control status.
@@ -1124,10 +1139,11 @@ Data for 4000 individuals has been simulated under the following scenario:
 \end{itemize}
 <<echo=TRUE>>=
 set.seed(123456)
-rr<-1.7
-incid0<-0.12
-lambda<-c(incid0,incid0*rr,incid0*rr^2)
-dsim<-simCNVdataPois(n=4000,mu.surrog=0:2,sd.surrog=rep(0.4,3),w=c(0.25,0.5,0.25),lambda=lambda)
+rr <- 1.7
+incid0 <- 0.12
+lambda <- c(incid0, incid0 * rr, incid0 * rr^2)
+dsim <- simCNVdataPois(n = 4000, mu.surrog = 0:2, sd.surrog = rep(0.4, 3),
+w = c(0.25, 0.5, 0.25), lambda = lambda)
 head(dsim)
 @
 
@@ -1141,14 +1157,14 @@ The result is a data frame with 3 variables, and as many rows as individuals. Th
 First an object of class \texttt{cnv} is obtained fitting a normal mixture to the intensity signal, as in section ...
 Note that to make the normal mixture converge ''mclust'' method is specified:
 <<echo=TRUE>>=
-CNV<-cnv(dsim$surrog,mix="mclust")
+CNV <- cnv(dsim$surrog, mix = "mclust")
 CNV
 @
 
 Then, an association model with CNV and the phenotype assuming an additive effect is performed as usual,
 but specifying \texttt{family="poisson"} in the call to function \texttt{CNVassoc}:
 <<echo=TRUE>>=
-fit<-CNVassoc(resp~CNV, data=dsim, family="poisson", model="add")
+fit <- CNVassoc(resp ~ CNV, data = dsim, family = "poisson", model = "add")
 coef(summary(fit))
 @
 
@@ -1157,9 +1173,10 @@ The same generic functions are appliable as for normal and binary traits. Note t
 
 We can compare this to the ''gold standard'' model, where the phenotype is regressed to the true copy number status:
 <<echo=TRUE>>=
-fit.gold<-glm(resp~cnv, data=dsim, family="poisson")
-table.gold<-c(exp(c(coef(fit.gold)[2],confint(fit.gold)[2,])),coef(summary(fit.gold))[2,4])
-names(table.gold)<-c("RR","lower","upper","p-value")
+fit.gold <- glm(resp ~ cnv, data = dsim, family = "poisson")
+table.gold <- c(exp(c(coef(fit.gold)[2], confint(fit.gold)[2,])), 
+coef(summary(fit.gold))[2,4])
+names(table.gold) <- c("RR", "lower", "upper", "p-value")
 table.gold
 @
 
@@ -1171,15 +1188,16 @@ Because the data has been simulated from a fixed scenario, we may be interested 
 under a naive strategy, i.e. compared to fitting a standard log-linear Poisson model assigning the most probable copy number to each individual (best
 guess approach):
 <<echo=TRUE>>=
-fit.naive<-glm(resp~CNV, data=dsim, family="poisson")
-table.naive<-c(exp(c(coef(fit.naive)[2],confint(fit.naive)[2,])),coef(summary(fit.naive))[2,4])
-names(table.naive)<-c("RR","lower","upper","p-value")
+fit.naive <- glm(resp ~ CNV, data = dsim, family = "poisson")
+table.naive <- c(exp(c(coef(fit.naive)[2], confint(fit.naive)[2,])), 
+coef(summary(fit.naive))[2,4])
+names(table.naive) <- c("RR", "lower", "upper", "p-value")
 table.naive
 @
 
 To sum up, table \ref{table-compare} gives the relative risk estimated under different models (gold standard, latent class and naive):
 <<echo=FALSE,results=tex>>=
-taula<-rbind(
+taula <- rbind(
 table.gold[1:3],
 coef(summary(fit))[,c("RR","lower.lim","upper.lim")],
 table.naive[1:3])
@@ -1222,18 +1240,18 @@ The following scenario has been simulated for 5000 individuals:
 \end{itemize}
 <<echo=TRUE>>=
 set.seed(123456)
-n<-5000
-w<-c(0.25,0.5,0.25)
-mu.surrog<-0:2
-sd.surrog<-rep(0.4,3)
-hr<-1.5
-incid0<-0.05
-lambda<-c(incid0,incid0*hr,incid0*hr^2)
-shape<-1
-scale <-lambda^(-1/shape)
-perc.obs<-0.10
-time.cens<-qweibull(perc.obs,mean(shape),mean(scale))
-dsim<-simCNVdataWeibull(n, mu.surrog, sd.surrog, w, lambda, shape, time.cens)
+n <- 5000
+w <- c(0.25, 0.5, 0.25)
+mu.surrog <- 0:2
+sd.surrog <- rep(0.4, 3)
+hr <- 1.5
+incid0 <- 0.05
+lambda <- c(incid0, incid0 * hr, incid0 * hr^2)
+shape <- 1
+scale <- lambda^(-1/shape)
+perc.obs <- 0.10
+time.cens <- qweibull(perc.obs, mean(shape), mean(scale))
+dsim <- simCNVdataWeibull(n, mu.surrog, sd.surrog, w, lambda, shape, time.cens)
 head(dsim)
 @
 

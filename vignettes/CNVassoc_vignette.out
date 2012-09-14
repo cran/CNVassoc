@@ -1,0 +1,22 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}
+\BOOKMARK [1][-]{section.2}{CNV from a single probe}{}
+\BOOKMARK [2][-]{subsection.2.1}{The data}{section.2}
+\BOOKMARK [2][-]{subsection.2.2}{Inferring copy number status from signal data}{section.2}
+\BOOKMARK [3][-]{subsubsection.2.2.1}{From univariate signal intensity}{subsection.2.2}
+\BOOKMARK [3][-]{subsubsection.2.2.2}{From other algorithms}{subsection.2.2}
+\BOOKMARK [3][-]{subsubsection.2.2.3}{From predetermined thresholds}{subsection.2.2}
+\BOOKMARK [2][-]{subsection.2.3}{Summarizing information}{section.2}
+\BOOKMARK [2][-]{subsection.2.4}{Measuring uncertainty in inferring copy number status}{section.2}
+\BOOKMARK [2][-]{subsection.2.5}{Assessing associations between CNV and disease}{section.2}
+\BOOKMARK [3][-]{subsubsection.2.5.1}{Modelling association}{subsection.2.5}
+\BOOKMARK [3][-]{subsubsection.2.5.2}{Testing associations}{subsection.2.5}
+\BOOKMARK [1][-]{section.3}{CNV from aCGH}{}
+\BOOKMARK [1][-]{section.4}{Illumina data}{}
+\BOOKMARK [2][-]{subsection.4.1}{Preparing signal data}{section.4}
+\BOOKMARK [2][-]{subsection.4.2}{Inferring copy number status considering batch effect}{section.4}
+\BOOKMARK [2][-]{subsection.4.3}{Association model: comparison with results from CNVtools}{section.4}
+\BOOKMARK [3][-]{subsubsection.4.3.1}{Power and computation time of CNVassoc and CNVtools}{subsection.4.3}
+\BOOKMARK [1][-]{section.5}{Imputed data \(SNPTEST format\)}{}
+\BOOKMARK [1][-]{section.6}{Other phenotype distributions}{}
+\BOOKMARK [2][-]{subsection.6.1}{Poisson distributed phenotype}{section.6}
+\BOOKMARK [2][-]{subsection.6.2}{Weibull distributed phenotype}{section.6}

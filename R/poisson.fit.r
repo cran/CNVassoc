@@ -18,7 +18,7 @@ function (x, y, weights, tol = 1e-08, max.iter = 25, verbose = FALSE)
                 glm.control()$epsilon/1000), coefficients = double(nvars),
             residuals = double(nobs), effects = double(nobs),
             rank = integer(1), pivot = 1:nvars, qraux = double(nvars),
-            work = double(2 * nvars), PACKAGE = "base")
+            work = double(2 * nvars), PACKAGE = "CNVassoc")
         coeffic <- fit$coefficients
         eta <- drop(x %*% coeffic)
         mu <- exp(eta)
