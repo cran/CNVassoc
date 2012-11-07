@@ -654,7 +654,7 @@ The calling can be performed using {\tt CGHcall} package by using the following 
 ### chunk number 1: Class of aCGH data
 ######################################################
 library(CGHcall)
-Neve <- cghRaw(intensities)
+Neve <- make_cghRaw(intensities)
 
 ######################################################
 ### chunk number 2: Preprocessing
@@ -705,8 +705,7 @@ probs[1:5, 1:7]
 @
 
 %
-This table can be read as following. The probability that the  individual {\tt X600MOE} is normal for the signature {\tt RP11-82D16} 
-is 0.932, while the probability of having a gain is 0.046 and 0.022 of having a loss.
+This table can be read as following. The probability that the  individual {\tt X600MOE} is normal for the signature \Sexpr{probs[1,1]} is \Sexpr{probs[1,6]}, while the probability of having a gain is \Sexpr{probs[1,7]} and \Sexpr{probs[1,5]} of having a loss.
 
 In order to determine the regions that are recurrent or common among samples, we use the {\tt CGHregions} function that takes an object 
 of class {\tt cghCall} (e.g. object {\tt NeveCalled} in our case). This algorithm reduces the initial table to a smaller matrix that 

@@ -1,15 +1,21 @@
-V1.3
+v1.5
+2012-11-06
+- multiCNVassoc: new arguments added (num.copies and cnv.tol).
+- vignette: changed to accomodate new make_cghRaw function from CGHbase package.
+
+V1.4
 2012-09-13
 - changed: call to .Fortran for a base code has been removed (see Brian Ripley's e-mail)
 - getProbsRegions: new argument 'nclass' added.
 - CGH example in the vignette changed in order to be compatible with the new version of CGHcall and CGHregions packages.
 
-v1.2
+v1.3-v1.4
 2012-03-26
 - fixed: problems when checking Windows version
 
-v1.1
-2012-03-19
+
+v1.1-v1.2
+2012-03-26
 - fixed: problems when checking Windows version
 
 v1.0

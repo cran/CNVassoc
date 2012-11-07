@@ -458,13 +458,13 @@ To choose PGC method type
 > CNVassoc::getQualityScore(CNV.1, type = "class")
 \end{Sinput}
 \begin{Soutput}
---Probability of good classification: 0.9999963 
+--Probability of good classification: 0.9999779 
 \end{Soutput}
 \begin{Sinput}
 > CNVassoc::getQualityScore(CNV.2, type = "class")
 \end{Sinput}
 \begin{Soutput}
---Probability of good classification: 0.9096771 
+--Probability of good classification: 0.9094779 
 \end{Soutput}
 \end{Schunk}
 
@@ -953,7 +953,7 @@ The calling can be performed using {\tt CGHcall} package by using the following 
 ### chunk number 1: Class of aCGH data
 ######################################################
 library(CGHcall)
-Neve <- cghRaw(intensities)
+Neve <- make_cghRaw(intensities)
 
 ######################################################
 ### chunk number 2: Preprocessing
@@ -1009,17 +1009,16 @@ This is a dataframe that looks like this:
 \end{Sinput}
 \begin{Soutput}
                 Clone Chromo BPstart   BPend X600MPE X600MPE.1 X600MPE.2
-RP11-82D16 RP11-82D16      1 2008651 2008651   0.022     0.932     0.046
-RP11-62M23 RP11-62M23      1 3367844 3367844   0.022     0.932     0.046
-RP11-111O5 RP11-111O5      1 4261844 4261844   0.022     0.932     0.046
-RMC01P070   RMC01P070      1 5918606 5918606   0.022     0.932     0.046
-RP11-51B4   RP11-51B4      1 6068980 6068980   0.022     0.932     0.046
+RP11-82D16 RP11-82D16      1 2008651 2008651       0     0.973     0.027
+RP11-62M23 RP11-62M23      1 3367844 3367844       0     0.973     0.027
+RP11-111O5 RP11-111O5      1 4261844 4261844       0     0.973     0.027
+RMC01P070   RMC01P070      1 5918606 5918606       0     0.973     0.027
+RP11-51B4   RP11-51B4      1 6068980 6068980       0     0.973     0.027
 \end{Soutput}
 \end{Schunk}
 
 %
-This table can be read as following. The probability that the  individual {\tt X600MOE} is normal for the signature {\tt RP11-82D16} 
-is 0.932, while the probability of having a gain is 0.046 and 0.022 of having a loss.
+This table can be read as following. The probability that the  individual {\tt X600MOE} is normal for the signature RP11-82D16 is 0.973, while the probability of having a gain is 0.027 and 0 of having a loss.
 
 In order to determine the regions that are recurrent or common among samples, we use the {\tt CGHregions} function that takes an object 
 of class {\tt cghCall} (e.g. object {\tt NeveCalled} in our case). This algorithm reduces the initial table to a smaller matrix that 
@@ -1078,12 +1077,12 @@ Multiple comparisons can be addressed by using the Benjamini \& Hochberg approac
 \end{Sinput}
 \begin{Soutput}
   region         pval     pval.BH
-1    319 2.891862e-06 0.001324473
-2    318 1.633799e-05 0.002494267
-3    320 1.576279e-05 0.002494267
-4    316 8.998845e-05 0.010303677
-5      9 2.865773e-04 0.011217002
-6    298 2.027325e-04 0.011217002
+1    274 7.005210e-06 0.002746042
+2    257 7.904878e-05 0.006528060
+3    273 5.085502e-05 0.006528060
+4    275 5.496328e-05 0.006528060
+5    277 8.326607e-05 0.006528060
+6    363 1.446898e-04 0.009453070
 \end{Soutput}
 \end{Schunk}
 
@@ -1097,7 +1096,7 @@ Table 6 in \cite{GonSubEsc09} can be obtained by typing
 \end{Sinput}
 \begin{Soutput}
   (-Inf,1e-05] (1e-05,0.0001] (0.0001,0.001]   (0.001,0.01]    (0.01,0.05] 
-             1              4             27             64            117 
+             1              5             23             50             97 
 \end{Soutput}
 \end{Schunk}
 %
@@ -1290,7 +1289,7 @@ regression will be performed. To compute the Likelihood Ratio Test on CNV:
 \end{Sinput}
 \begin{Soutput}
 ----CNV Likelihood Ratio Test----
-Chi= 1.812608 (df= 1 ) , pvalue= 0.1781957 
+Chi= 1.81261 (df= 1 ) , pvalue= 0.1781955 
 \end{Soutput}
 \end{Schunk}
 
@@ -1306,7 +1305,7 @@ And if a multiplicative model is assumed,
 \end{Sinput}
 \begin{Soutput}
 ----CNV Likelihood Ratio Test----
-Chi= 2.860054 (df= 2 ) , pvalue= 0.2393024 
+Chi= 2.860044 (df= 2 ) , pvalue= 0.2393036 
 \end{Soutput}
 \end{Schunk}
 
@@ -1695,8 +1694,8 @@ guess approach):
 \end{Schunk}
 
 To sum up, table \ref{table-compare} gives the relative risk estimated under different models (gold standard, latent class and naive):
-% latex table generated in R 2.15.1 by xtable 1.7-0 package
-% Tue Aug 28 15:22:28 2012
+% latex table generated in R 2.15.2 by xtable 1.7-0 package
+% Wed Nov 07 13:20:36 2012
 \begin{table}[ht]
 \begin{center}
 \begin{tabular}{rrrr}

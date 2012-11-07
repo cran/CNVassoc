@@ -11,12 +11,14 @@ This function repeatedly calls CNVassoc function
 }
 
 \usage{
-multiCNVassoc(x, formula, ...)
+multiCNVassoc(x, formula, num.copies = 0:2, cnv.tol = 0.01, ...)
 }
 
 \arguments{
   \item{x}{a list of calling probabilities matrix for each CNV }
   \item{formula}{see 'formula' argument of \code{\link{CNVassoc}} function. }
+  \item{num.copies}{See argument of \code{\link{cnv}} function. }
+  \item{cnv.tol}{See argument of \code{\link{cnv}} function. }  
   \item{\dots}{other arguments passed through 'CNVassoc' function.}
 }
 

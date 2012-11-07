@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2012.1.20)  28 AUG 2012 15:22
+This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2012.1.20)  7 NOV 2012 13:20
 entering extended mode
-**C:/programs/Dropbox/CNVassoc_project/package/CNVassoc_1.3/CNVassoc/vignettes/
+**C:/programs/Dropbox/CNVassoc_project/package/CNVassoc_1.5/CNVassoc/vignettes/
 CNVassoc_vignette
 
-(C:/programs/Dropbox/CNVassoc_project/package/CNVassoc_1.3/CNVassoc/vignettes/C
+(C:/programs/Dropbox/CNVassoc_project/package/CNVassoc_1.5/CNVassoc/vignettes/C
 NVassoc_vignette.tex
 LaTeX2e <2009/09/24>
 Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, ge
@@ -244,7 +244,7 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 LaTeX Info: Redefining \[ on input line 2666.
 LaTeX Info: Redefining \] on input line 2667.
 )
-(C:\programs\Dropbox\CNVassoc_project\package\CNVassoc_1.3\CNVassoc\vignettes\S
+(C:\programs\Dropbox\CNVassoc_project\package\CNVassoc_1.5\CNVassoc\vignettes\S
 weave.sty
 Package: Sweave 
  (C:\programs\MikTex\tex\latex\base\ifthen.sty
@@ -354,7 +354,7 @@ LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
 (C:\programs\MikTex\tex\latex\ae\t1aer.fd
 File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
 ))))
-(C:\programs\Dropbox\CNVassoc_project\package\CNVassoc_1.3\CNVassoc\vignettes\C
+(C:\programs\Dropbox\CNVassoc_project\package\CNVassoc_1.5\CNVassoc\vignettes\C
 NVassoc_vignette.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
 LaTeX Font Info:    ... okay on input line 13.
@@ -389,9 +389,9 @@ Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
 LaTeX Info: Redefining \ref on input line 13.
 LaTeX Info: Redefining \pageref on input line 13.
 
-(C:\programs\Dropbox\CNVassoc_project\package\CNVassoc_1.3\CNVassoc\vignettes\C
+(C:\programs\Dropbox\CNVassoc_project\package\CNVassoc_1.5\CNVassoc\vignettes\C
 NVassoc_vignette.out)
-(C:\programs\Dropbox\CNVassoc_project\package\CNVassoc_1.3\CNVassoc\vignettes\C
+(C:\programs\Dropbox\CNVassoc_project\package\CNVassoc_1.5\CNVassoc\vignettes\C
 NVassoc_vignette.out)
 \@outlinefile=\write4
 \AtBeginShipoutBox=\box29
@@ -417,7 +417,7 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 27.
 (C:\programs\MikTex\tex\latex\amsfonts\umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
-(C:\programs\Dropbox\CNVassoc_project\package\CNVassoc_1.3\CNVassoc\vignettes\C
+(C:\programs\Dropbox\CNVassoc_project\package\CNVassoc_1.5\CNVassoc\vignettes\C
 NVassoc_vignette.toc [1
 
 {C:/Documents and Settings/isubirana/Configuración local/Datos de programa/MiKT
@@ -458,7 +458,7 @@ aMLPA$casco, n = 2)[]
 
 
 pdfTeX warning: pdflatex (file C:/programs/Dropbox/CNVassoc_project/package/CNV
-assoc_1.3/CNVassoc/vignettes/figures/fig1.pdf): PDF inclusion: found PDF versio
+assoc_1.5/CNVassoc/vignettes/figures/fig1.pdf): PDF inclusion: found PDF versio
 n <1.5>, but at most version <1.4> allowed
 <./figures/fig1.pdf, id=155, 505.89pt x 504.88625pt>
 File: ./figures/fig1.pdf Graphic file (type pdf)
@@ -467,11 +467,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 188--190
 
  []
 
-[4 <C:/programs/Dropbox/CNVassoc_project/package/CNVassoc_1.3/CNVassoc/vignette
+[4 <C:/programs/Dropbox/CNVassoc_project/package/CNVassoc_1.5/CNVassoc/vignette
 s/CNVassoc_vignette-005.pdf>] [5 <C:/programs/Dropbox/CNVassoc_project/package/
-CNVassoc_1.3/CNVassoc/vignettes/CNVassoc_vignette-007.pdf>] [6 <C:/programs/Dro
-pbox/CNVassoc_project/package/CNVassoc_1.3/CNVassoc/vignettes/CNVassoc_vignette
--009.pdf>] [7 <C:/programs/Dropbox/CNVassoc_project/package/CNVassoc_1.3/CNVass
+CNVassoc_1.5/CNVassoc/vignettes/CNVassoc_vignette-007.pdf>] [6 <C:/programs/Dro
+pbox/CNVassoc_project/package/CNVassoc_1.5/CNVassoc/vignettes/CNVassoc_vignette
+-009.pdf>] [7 <C:/programs/Dropbox/CNVassoc_project/package/CNVassoc_1.5/CNVass
 oc/vignettes/figures/fig1.pdf>] [8
 
 ] [9] [10]
@@ -490,14 +490,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 417--421
 
  []
 
-[11 <C:/programs/Dropbox/CNVassoc_project/package/CNVassoc_1.3/CNVassoc/vignett
+[11 <C:/programs/Dropbox/CNVassoc_project/package/CNVassoc_1.5/CNVassoc/vignett
 es/figures/fig2a.pdf> <C:/programs/Dropbox/CNVassoc_project/package/CNVassoc_1.
-3/CNVassoc/vignettes/figures/fig2b.pdf>]
+5/CNVassoc/vignettes/figures/fig2b.pdf>]
 <CNVassoc_vignette-021.pdf, id=248, 433.62pt x 433.62pt>
 File: CNVassoc_vignette-021.pdf Graphic file (type pdf)
 
 <use CNVassoc_vignette-021.pdf> [12 <C:/programs/Dropbox/CNVassoc_project/packa
-ge/CNVassoc_1.3/CNVassoc/vignettes/CNVassoc_vignette-021.pdf>]
+ge/CNVassoc_1.5/CNVassoc/vignettes/CNVassoc_vignette-021.pdf>]
 LaTeX Font Info:    Try loading font information for TS1+aett on input line 499
 .
 LaTeX Font Info:    No file TS1aett.fd. on input line 499.
@@ -528,13 +528,13 @@ thOutliers = TRUE)[]
  []
 
 [22] [23]
-Overfull \hbox (8.5118pt too wide) in paragraph at lines 1071--1073
+Overfull \hbox (8.5118pt too wide) in paragraph at lines 1070--1072
 []\T1/aer/m/n/10.95 Multiple com-par-isons can be ad-dressed by us-ing the Ben-
 jamini & Hochberg
  []
 
 [24] [25] [26]
-Underfull \hbox (badness 10000) in paragraph at lines 1262--1264
+Underfull \hbox (badness 10000) in paragraph at lines 1261--1263
 
  []
 
@@ -542,25 +542,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 1262--1264
 File: CNVassoc_vignette-056.pdf Graphic file (type pdf)
 
 <use CNVassoc_vignette-056.pdf> [27] [28 <C:/programs/Dropbox/CNVassoc_project/
-package/CNVassoc_1.3/CNVassoc/vignettes/CNVassoc_vignette-056.pdf>]
+package/CNVassoc_1.5/CNVassoc/vignettes/CNVassoc_vignette-056.pdf>]
 
 LaTeX Font Warning: Font shape `T1/aett/bx/n' undefined
-(Font)              using `T1/aett/m/n' instead on input line 1278.
+(Font)              using `T1/aett/m/n' instead on input line 1277.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1298--1300
+Underfull \hbox (badness 10000) in paragraph at lines 1297--1299
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1321--1335
+Underfull \hbox (badness 10000) in paragraph at lines 1320--1334
 
  []
 
 [29
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 1336--1339
+Underfull \hbox (badness 10000) in paragraph at lines 1335--1338
 
  []
 
@@ -572,89 +572,89 @@ File: ./figures/main_figure_new.pdf Graphic file (type pdf)
 File: ./figures/main_fugure_Q.pdf Graphic file (type pdf)
 
 <use ./figures/main_fugure_Q.pdf> [30] [31 <C:/programs/Dropbox/CNVassoc_projec
-t/package/CNVassoc_1.3/CNVassoc/vignettes/figures/main_figure_new.pdf, page is 
+t/package/CNVassoc_1.5/CNVassoc/vignettes/figures/main_figure_new.pdf, page is 
 rotated 90 degrees>] [32 <C:/programs/Dropbox/CNVassoc_project/package/CNVassoc
-_1.3/CNVassoc/vignettes/figures/main_fugure_Q.pdf, page is rotated 90 degrees>]
+_1.5/CNVassoc/vignettes/figures/main_fugure_Q.pdf, page is rotated 90 degrees>]
 
-Overfull \hbox (19.70828pt too wide) in paragraph at lines 1399--1410
+Overfull \hbox (19.70828pt too wide) in paragraph at lines 1398--1409
 \T1/aer/m/n/10.95 (avail-able on []http://www.stats.ox.ac.uk/ mar-chini/softwar
 e/gwas/snptest.html[])
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1399--1410
+Underfull \hbox (badness 10000) in paragraph at lines 1398--1409
 
  []
 
 [33
 
 ]
-LaTeX Font Info:    Try loading font information for TS1+aer on input line 1478
+LaTeX Font Info:    Try loading font information for TS1+aer on input line 1477
 .
-LaTeX Font Info:    No file TS1aer.fd. on input line 1478.
+LaTeX Font Info:    No file TS1aer.fd. on input line 1477.
 
 
 LaTeX Font Warning: Font shape `TS1/aer/m/n' undefined
 (Font)              using `TS1/cmr/m/n' instead
-(Font)              for symbol `textbullet' on input line 1478.
+(Font)              for symbol `textbullet' on input line 1477.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1485--1491
+Underfull \hbox (badness 10000) in paragraph at lines 1484--1490
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1492--1494
+Underfull \hbox (badness 10000) in paragraph at lines 1491--1493
 
  []
 
 [34] [35]
-Underfull \hbox (badness 10000) in paragraph at lines 1579--1581
+Underfull \hbox (badness 10000) in paragraph at lines 1578--1580
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1582--1585
+Underfull \hbox (badness 10000) in paragraph at lines 1581--1584
 
  []
 
 [36] [37]
-Underfull \hbox (badness 10000) in paragraph at lines 1676--1678
+Underfull \hbox (badness 10000) in paragraph at lines 1675--1677
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1720--1727
+Underfull \hbox (badness 10000) in paragraph at lines 1719--1726
 
  []
 
 [38]
-Overfull \hbox (52.86087pt too wide) in paragraph at lines 1729--1733
+Overfull \hbox (52.86087pt too wide) in paragraph at lines 1728--1732
 []\T1/aer/m/n/10.95 Function \T1/aett/m/n/10.95 CNVassoc \T1/aer/m/n/10.95 can 
 han-dle this sit-u-a-tion, sim-ply by spec-i-fy-ing \T1/aett/m/n/10.95 family\T
 1/aer/m/n/10.95 =''weibull''
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1729--1733
+Underfull \hbox (badness 10000) in paragraph at lines 1728--1732
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1734--1737
+Underfull \hbox (badness 10000) in paragraph at lines 1733--1736
 
  []
 
 [39] [40]
-Overfull \hbox (0.49275pt too wide) in paragraph at lines 1807--1812
+Overfull \hbox (0.49275pt too wide) in paragraph at lines 1806--1811
 \T1/aer/m/n/10.95 ad-di-tive ef-fect is per-formed as usual, this time spec-i-f
 y-ing \T1/aett/m/n/10.95 family="weibull"\T1/aer/m/n/10.95 ,
  []
 
 
-(C:\programs\Dropbox\CNVassoc_project\package\CNVassoc_1.3\CNVassoc\vignettes\C
+(C:\programs\Dropbox\CNVassoc_project\package\CNVassoc_1.5\CNVassoc\vignettes\C
 NVassoc_vignette.bbl [41]) [42]
-(C:\programs\Dropbox\CNVassoc_project\package\CNVassoc_1.3\CNVassoc\vignettes\C
+(C:\programs\Dropbox\CNVassoc_project\package\CNVassoc_1.5\CNVassoc\vignettes\C
 NVassoc_vignette.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -683,7 +683,7 @@ fb><C:/programs/MikTex/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/programs/M
 ikTex/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/programs/MikTex/fonts/type1
 /public/amsfonts/cm/cmtt12.pfb><C:/programs/MikTex/fonts/type1/public/amsfonts/
 cm/cmtt8.pfb><C:/programs/MikTex/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on CNVassoc_vignette.pdf (42 pages, 485234 bytes).
+Output written on CNVassoc_vignette.pdf (42 pages, 485390 bytes).
 PDF statistics:
  547 PDF objects out of 1000 (max. 8388607)
  91 named destinations out of 1000 (max. 500000)
