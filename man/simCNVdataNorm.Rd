@@ -51,7 +51,8 @@ set.seed(123)
 maf<-0.3
 effect<-3
 simData<-simCNVdataNorm(n=1000, mu.surrog=c(0,0.5,1), sd.surrog=rep(0.15,3), 
-         w=c((1-maf)^2,2*maf*(1-maf), maf^2), mu.y=100+c(0,effect,2*effect), sd.y=rep(20,3), cnv.random = FALSE)
+         w=c((1-maf)^2,2*maf*(1-maf), maf^2), mu.y=100+c(0,effect,2*effect), 
+         sd.y=rep(20,3), cnv.random = FALSE)
 CNV<-cnv(simData$surrog,mix.method="EMmixt")
 getQualityScore(CNV,type="CNVtools")
 mod<-CNVassoc(resp~CNV,data=simData,family="gaussian",emsteps=10)

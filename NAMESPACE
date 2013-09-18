@@ -1,3 +1,5 @@
+useDynLib(CNVassoc)
+
 export(
 cnv,
 is.cnv,
@@ -14,7 +16,8 @@ simCNVdataNorm,
 simCNVdataCaseCon,
 simCNVdataPois,
 simCNVdataWeibull,
-plotSignal
+plotSignal,
+fastCNVassoc
 )
 
 S3method(print, cnv)

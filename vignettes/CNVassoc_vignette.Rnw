@@ -10,6 +10,7 @@
 
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 
 %\setkeys{Gin}{width=0.99\textwidth}
 
@@ -172,7 +173,7 @@ cutpoints <- plotSignal(dataMLPA$Gene2, case.control = dataMLPA$casco, n = 2)
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics{./figures/fig1.pdf}
+\includegraphics{fig1.pdf}
 \caption{\small Signal distribution for Gene 2 using \texttt{plotSignal} once cutoff points have been set with \texttt{locator}}
 \label{fig-plotSignalcutoffs}
 \end{center}
@@ -322,10 +323,10 @@ Figure \ref{fig-MLPAcnv} shows the result of invoking the generic {\tt plot} fun
 %
 
 <<echo=T>>=
-pdf("./figures/fig2a.pdf")
+pdf("fig2a.pdf")
 plot(CNV.1, case.control = dataMLPA$casco, main = "Gene 1")
 dev.off()
-pdf("./figures/fig2b.pdf")
+pdf("fig2b.pdf")
 plot(CNV.2, case.control = dataMLPA$casco, main = "Gene 2")
 dev.off()
 @
@@ -335,9 +336,9 @@ dev.off()
 \begin{figure}[ht]
 \centering
 \begin{tabular}{|c|c|}\hline
-\begin{tabular}{c} \psfig{file=./figures/fig2a.pdf,width=2.5in,height=2.5in,clip=}  \end{tabular}
+\begin{tabular}{c} \psfig{file=fig2a.pdf,width=2.5in,height=2.5in,clip=}  \end{tabular}
  &  \begin{tabular}{c}
-\psfig{file=./figures/fig2b.pdf,width=2.5in,height=2.5in,clip=}
+\psfig{file=fig2b.pdf,width=2.5in,height=2.5in,clip=}
  \end{tabular}
  \\ \hline
 \end{tabular}
@@ -973,7 +974,7 @@ copy number uncertainty $Q$ and number of cases $N$.}\label{table-time}
 
 \begin{figure}[ht] 
 \begin{center}
-\includegraphics{./figures/main_figure_new.pdf}
+\includegraphics{main_figure_new.pdf}
 \caption{\small Power achieved by CNVassoc and CNVtools, depending on sample size, inferring copy number uncertainty ($Q$), 
 degree of differencial bias ($\Delta \mu$) and sample size ($N$) under an scenario where the power to decect 
 associated CNV is 90\% if no inferring copy number uncertainty was present.}
@@ -983,7 +984,7 @@ associated CNV is 90\% if no inferring copy number uncertainty was present.}
 
 \begin{figure}[ht] 
 \begin{center}
-\includegraphics{./figures/main_fugure_Q.pdf}
+\includegraphics{main_fugure_Q.pdf}
 \caption{\small Power achieved by CNVassoc and CNVtools, with different values of copy number uncertainty ($Q$) and sample size ($N$) 
 under an scenario where the power to decect associated CNV is 90\% if no inferring copy number uncertainty was present.}
 \label{fig-Q}

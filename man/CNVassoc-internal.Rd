@@ -42,12 +42,16 @@ mixture(intensities, num.class, mix.method, threshold.0, threshold.k, mu.ini,
         sigma.ini, pi.ini, var.equal)
 NRlogistic(y, X, w, beta, variant, tol, max.iter, verbose)
 NRnorm(y, X, w, beta, sigma, variant, tol = 10^-6, max.iter = 1000, verbose = FALSE)
-plot.cnv.intensities(x, my.colors = c("black", "red", "blue"), ylab = "Peak Intensity", xlab = c("individuals", "Phenotype"), case.control, cex.leg = 0.8, dens.bw = "nrd0", dens.adjust = 1, ...)
-plot.cnv.probabilities(x, my.colors = c("black", "red", "blue"), case.control, ylab = "CNV probability", xlab, ...)
+plot.cnv.intensities(x, my.colors = c("black", "red", "blue"), ylab = "Peak Intensity", 
+        xlab = c("individuals", "Phenotype"), case.control, cex.leg = 0.8, 
+        dens.bw = "nrd0", dens.adjust = 1, ...)
+plot.cnv.probabilities(x, my.colors = c("black", "red", "blue"), case.control, 
+         ylab = "CNV probability", xlab, ...)
 vector2matrix(betav, variant, J)
 is.quantitative(formula, data)
 getProbsRegions.i(i, blocks, probs, annotation, nclass)
 plapply(X, FUN, ...)
+translate(obj)
 }
 
 \details{These are not to be called by the user}

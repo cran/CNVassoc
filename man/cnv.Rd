@@ -19,7 +19,9 @@
 
 \usage{
   cnv(x, batches, ...)
-  cnvDefault(x, num.copies, num.class, cnv.tol = 0.001, mix.method = "mixdist", check.probs = TRUE,  threshold.0, threshold.k, mu.ini, sigma.ini, pi.ini, cutoffs = NULL, check.alpha = 0.05, check.cnv = TRUE, var.equal)
+  cnvDefault(x, num.copies, num.class, cnv.tol = 0.001, mix.method = "mixdist", 
+             check.probs = TRUE,  threshold.0, threshold.k, mu.ini, sigma.ini, pi.ini, 
+             cutoffs = NULL, check.alpha = 0.05, check.cnv = TRUE, var.equal)
   cnvBatches(intensities, batches, threshold.0, threshold.k, common.pi = TRUE, ...)
   is.cnv(obj)
   \method{plot}{cnv}(x, ...)

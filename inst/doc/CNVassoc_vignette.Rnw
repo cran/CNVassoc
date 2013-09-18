@@ -9,8 +9,8 @@
 
 
 
-\usepackage{Sweave}
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 
 %\setkeys{Gin}{width=0.99\textwidth}
 
@@ -59,19 +59,18 @@ directly from the \texttt{CNVassoc} package. Finally, we show examples with Pois
 \noindent Start by loading the package \texttt{CNVassoc}:
 
 
+<<echo=F>>=
+options(width=120)
+@
 
-\begin{Schunk}
-\begin{Sinput}
-> library(CNVassoc)
-\end{Sinput}
-\end{Schunk}
+<<echo=T>>=
+library(CNVassoc)
+@
 
 \noindent and some required libraries
-\begin{Schunk}
-\begin{Sinput}
-> library(xtable)
-\end{Sinput}
-\end{Schunk}
+<<echo=T>>=
+library(xtable)
+@
 
 
 
@@ -92,21 +91,10 @@ The MLPA data set contains case control status as well as two simulated covariat
 for illustrative purposes (e.g., association between a quantitative trait and CNV or how to adjust for covariates). 
 To load the MLPA data just type
 
-\begin{Schunk}
-\begin{Sinput}
-> data(dataMLPA)
-> head(dataMLPA)
-\end{Sinput}
-\begin{Soutput}
-    id casco Gene1     Gene2 PCR.Gene1 PCR.Gene2 quanti   cov
-1 H238     1  0.51 0.5385080        wt        wt  -0.61 10.83
-2 H238     1  0.45 0.6392029        wt        wt  -0.13 10.69
-3 H239     1  0.00 0.4831572       del        wt  -0.57  9.63
-4 H239     1  0.00 0.4640072       del        wt  -1.40  9.87
-5 H276     1  0.00 0.0000000       del       del   0.83 10.25
-6 H276     1  0.00 0.0000000       del       del  -2.07 10.40
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+data(dataMLPA)
+head(dataMLPA)
+@
 
 %
 % description of each of the variables of dataset %
@@ -122,7 +110,14 @@ Figure \ref{fig-MLPAsignal} shows the signals for Gene 1 and Gene 2. For both ge
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics{CNVassoc_vignette-005}
+<<echo=F,fig=TRUE>>=
+par(mfrow=c(2,2),mar=c(3,4,3,1))
+hist(dataMLPA$Gene1,main="Gene 1 signal histogram",xlab="",ylab="frequency")
+hist(dataMLPA$Gene2,main="Gene 2 signal histogram",xlab="",ylab="frequency")
+par(xaxs="i")
+plot(density(dataMLPA$Gene1),main="Gene 1 signal density function",xlab="",ylab="density")
+plot(density(dataMLPA$Gene2),main="Gene 2 signal density function",xlab="",ylab="density")
+@
 \caption{\small Signal distributions for Gene 1 and Gene 2}
 \label{fig-MLPAsignal}
 \end{center}
@@ -130,31 +125,31 @@ Figure \ref{fig-MLPAsignal} shows the signals for Gene 1 and Gene 2. For both ge
 
 In the CNVassoc package, a function called \texttt{plotSignal} has been implemented to plot the peak intensities for a gene.
 To illustrate this, a plot of the intensities of Gene 2 for each individual, distinguishing between cases and controls, can be performed by typing (see figure \ref{fig-plotSignalcasecon}) 
-\begin{Schunk}
-\begin{Sinput}
-> plotSignal(dataMLPA$Gene2,case.control=dataMLPA$casco)
-\end{Sinput}
-\end{Schunk}
+<<echo=T>>=
+plotSignal(dataMLPA$Gene2,case.control=dataMLPA$casco)
+@
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics{CNVassoc_vignette-007}
+<<echo=F,fig=TRUE>>=
+plotSignal(dataMLPA$Gene2,case.control=dataMLPA$casco)
+@
 \caption{\small Signal distribution for Gene 2 using \texttt{plotSignal}}
 \label{fig-plotSignalcasecon}
 \end{center}
 \end{figure}
 
 \noindent or, similarly but correlating the peak intensities with a quantitative phenotype (see figure \ref{fig-plotSignalquanti}) type
-\begin{Schunk}
-\begin{Sinput}
-> plotSignal(dataMLPA$Gene2, case.control = dataMLPA$quanti)
-\end{Sinput}
-\end{Schunk}
+<<echo=T>>=
+plotSignal(dataMLPA$Gene2, case.control = dataMLPA$quanti)
+@
 
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics{CNVassoc_vignette-009}
+<<echo=F,fig=TRUE>>=
+plotSignal(dataMLPA$Gene2,case.control=dataMLPA$quanti)
+@
 \caption{\small Signal distribution for Gene 2 using \texttt{plotSignal}}
 \label{fig-plotSignalquanti}
 \end{center}
@@ -178,7 +173,7 @@ cutpoints <- plotSignal(dataMLPA$Gene2, case.control = dataMLPA$casco, n = 2)
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics{./figures/fig1.pdf}
+\includegraphics{fig1.pdf}
 \caption{\small Signal distribution for Gene 2 using \texttt{plotSignal} once cutoff points have been set with \texttt{locator}}
 \label{fig-plotSignalcutoffs}
 \end{center}
@@ -190,14 +185,12 @@ from the cutoff points.\\
 
 In this example, the cutoff points have been placed at:
 
-\begin{Schunk}
-\begin{Sinput}
-> cutpoints
-\end{Sinput}
-\begin{Soutput}
-[1] 0.08470221 0.40485249
-\end{Soutput}
-\end{Schunk}
+<<echo=FALSE>>=
+cutpoints <- c(0.08470221, 0.40485249)
+@
+<<echo=TRUE>>=
+cutpoints
+@
 
 
 These stored cutoff points will be used in the following sections.
@@ -230,12 +223,10 @@ Figure \ref{fig-MLPAsignal} presents two different scenarios. For Gene 1 there a
 Function {\tt cnv} provides various arguments to cope with all these issues. The calling for Gene 1 can be done by executing
 
 
-\begin{Schunk}
-\begin{Sinput}
-> CNV.1 <- cnv(x = dataMLPA$Gene1, threshold.0 = 0.06, num.class = 3, 
-+ mix.method = "mixdist")
-\end{Sinput}
-\end{Schunk}
+<<echo=T>>=
+CNV.1 <- cnv(x = dataMLPA$Gene1, threshold.0 = 0.06, num.class = 3, 
+mix.method = "mixdist")
+@
 
 
 The argument {\tt threshold.0=0.06} indicates that individuals with peak intensities lower than 0.06 will have 0 copies. 
@@ -249,11 +240,9 @@ the function uses the Bayesian Information Criteria (BIC) to select the number o
 {\tt num.class} is missing. In this case the function estimates the mixture model admitting from 2 up to 6 copy number status values.
 %
 
-\begin{Schunk}
-\begin{Sinput}
-> CNV.2 <- cnv(x = dataMLPA$Gene2, threshold.0 = 0.01, mix.method = "mixdist")
-\end{Sinput}
-\end{Schunk}
+<<echo=T>>=
+CNV.2 <- cnv(x = dataMLPA$Gene2, threshold.0 = 0.01, mix.method = "mixdist")
+@
 
 %
 As we can see, the best model has a copy number status of 3. This result, obtained by using BIC, is as expected because we already know 
@@ -274,11 +263,9 @@ This information is saved as an attribute for an object of class {\tt cnv}. A fu
 Thus the probability matrix can be saved in an object \texttt{probs.2} like this:
 
 
-\begin{Schunk}
-\begin{Sinput}
-> probs.2 <- getProbs(CNV.2)
-\end{Sinput}
-\end{Schunk}
+<<echo=T>>=
+probs.2 <- getProbs(CNV.2)
+@
 
 
 Imagine that \texttt{probs.2} contains posterior probabilities obtained from some calling algorithm such as CANARY (from PLINK) or 
@@ -286,11 +273,9 @@ Imagine that \texttt{probs.2} contains posterior probabilities obtained from som
 {\tt cnv} that will be used in the association step by typing
 %
 
-\begin{Schunk}
-\begin{Sinput}
-> CNV.2probs <- cnv(probs.2)
-\end{Sinput}
-\end{Schunk}
+<<echo=T>>=
+CNV.2probs <- cnv(probs.2)
+@
 
 
 %
@@ -299,11 +284,9 @@ Imagine that \texttt{probs.2} contains posterior probabilities obtained from som
 Inferring copy number status for Gene 2 from previously specified threshold points (stored in vector \texttt{cutpoints}) can be done using
 the same \texttt{cnv} function but setting the argument \texttt{cutoffs} to \texttt{cutpoints}.
 
-\begin{Schunk}
-\begin{Sinput}
-> CNV.2th <- cnv(x = dataMLPA$Gene2, cutoffs = cutpoints)
-\end{Sinput}
-\end{Schunk}
+<<echo=T>>=
+CNV.2th <- cnv(x = dataMLPA$Gene2, cutoffs = cutpoints)
+@
 
 Now, the inferred copy number object \texttt{CNV.2th} contains the same information as it would if it had been created directly from probabilities. 
 
@@ -315,97 +298,47 @@ inferred copy number status. It includes the means, variances and proportions of
 to the goodness-of-fit test for the selected number of classes.
 %% printing cnv object for gene 1 and gene 2.
 
-\begin{Schunk}
-\begin{Sinput}
-> CNV.1
-\end{Sinput}
-\begin{Soutput}
-Inferred copy number variant by a quantitative signal
-   Method: function mix {package: mixdist}  
-
--. Number of individuals: 651 
--. Copies 0, 1, 2 
--. Estimated means: 0, 0.2543, 0.4958 
--. Estimated variances: 0, 9e-04, 0.0012 
--. Estimated proportions: 0.6544, 0.3088, 0.0369 
--. Goodness-of-fit test: p-value= 0.6615318 
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+CNV.1
+@
 
 %
 and for Gene 2
 %
 
-\begin{Schunk}
-\begin{Sinput}
-> CNV.2
-\end{Sinput}
-\begin{Soutput}
-Inferred copy number variant by a quantitative signal
-   Method: function mix {package: mixdist}  
-
--. Number of individuals: 651 
--. Copies 0, 1, 2 
--. Estimated means: 0, 0.2435, 0.4469 
--. Estimated variances: 0, 0.0041, 0.0095 
--. Estimated proportions: 0.1306, 0.4187, 0.4507 
--. Goodness-of-fit test: p-value= 0.4887659 
-
-
--. Note: number of classes has been selected using the best BIC
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+CNV.2
+@
 
 %
 This report differs slightly when the object was created from only posterior probabilities:
 %
 
-\begin{Schunk}
-\begin{Sinput}
-> CNV.2probs
-\end{Sinput}
-\begin{Soutput}
--. Copy number variant
-   Input data: called probabilities
--. Number of individuals: 651 
--. Copies 0, 1, 2 
--. Estimated proportions: 0.1306, 0.4187, 0.4507 
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+CNV.2probs
+@
 
 %
 Figure \ref{fig-MLPAcnv} shows the result of invoking the generic {\tt plot} function on these objects.
 %
 
-\begin{Schunk}
-\begin{Sinput}
-> pdf("./figures/fig2a.pdf")
-> plot(CNV.1, case.control = dataMLPA$casco, main = "Gene 1")
-> dev.off()
-\end{Sinput}
-\begin{Soutput}
-windows 
-      2 
-\end{Soutput}
-\begin{Sinput}
-> pdf("./figures/fig2b.pdf")
-> plot(CNV.2, case.control = dataMLPA$casco, main = "Gene 2")
-> dev.off()
-\end{Sinput}
-\begin{Soutput}
-windows 
-      2 
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+pdf("fig2a.pdf")
+plot(CNV.1, case.control = dataMLPA$casco, main = "Gene 1")
+dev.off()
+pdf("fig2b.pdf")
+plot(CNV.2, case.control = dataMLPA$casco, main = "Gene 2")
+dev.off()
+@
 
 
 
 \begin{figure}[ht]
 \centering
 \begin{tabular}{|c|c|}\hline
-\begin{tabular}{c} \psfig{file=./figures/fig2a.pdf,width=2.5in,height=2.5in,clip=}  \end{tabular}
+\begin{tabular}{c} \psfig{file=fig2a.pdf,width=2.5in,height=2.5in,clip=}  \end{tabular}
  &  \begin{tabular}{c}
-\psfig{file=./figures/fig2b.pdf,width=2.5in,height=2.5in,clip=}
+\psfig{file=fig2b.pdf,width=2.5in,height=2.5in,clip=}
  \end{tabular}
  \\ \hline
 \end{tabular}
@@ -428,7 +361,9 @@ number frequency.
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics{CNVassoc_vignette-021}
+<<echo=F,fig=T>>=
+plot(CNV.2probs, case.control=dataMLPA$casco)
+@
 \caption{\small Estimated copy number frequencies for Gene 1 and Gene 2}
 \label{fig-MLPAcnvprob}
 \end{center}
@@ -453,58 +388,28 @@ score (described in \cite{canary}) bigger than 0.1. \\
 To choose PGC method type
 %
 
-\begin{Schunk}
-\begin{Sinput}
-> CNVassoc::getQualityScore(CNV.1, type = "class")
-\end{Sinput}
-\begin{Soutput}
---Probability of good classification: 0.9999779 
-\end{Soutput}
-\begin{Sinput}
-> CNVassoc::getQualityScore(CNV.2, type = "class")
-\end{Sinput}
-\begin{Soutput}
---Probability of good classification: 0.9094779 
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+CNVassoc::getQualityScore(CNV.1, type = "class")
+CNVassoc::getQualityScore(CNV.2, type = "class")
+@
 
 %
 To choose the measure defined in the \texttt{CNVtools} package:
 %
 
-\begin{Schunk}
-\begin{Sinput}
-> CNVassoc::getQualityScore(CNV.1, type = "CNVtools")
-\end{Sinput}
-\begin{Soutput}
---CNVtools Quality Score: 25.16849 
-\end{Soutput}
-\begin{Sinput}
-> CNVassoc::getQualityScore(CNV.2, type = "CNVtools")
-\end{Sinput}
-\begin{Soutput}
---CNVtools Quality Score: 3.057171 
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+CNVassoc::getQualityScore(CNV.1, type = "CNVtools")
+CNVassoc::getQualityScore(CNV.2, type = "CNVtools")
+@
 
 %
 And to choose the third measure:
 %
 
-\begin{Schunk}
-\begin{Sinput}
-> CNVassoc::getQualityScore(CNV.1, type = "CANARY")
-\end{Sinput}
-\begin{Soutput}
---Probability to have a 'CANARY confidence index' > 0.1 : 0 
-\end{Soutput}
-\begin{Sinput}
-> CNVassoc::getQualityScore(CNV.2, type = "CANARY")
-\end{Sinput}
-\begin{Soutput}
---Probability to have a 'CANARY confidence index' > 0.1 : 0.302672 
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+CNVassoc::getQualityScore(CNV.1, type = "CANARY")
+CNVassoc::getQualityScore(CNV.2, type = "CANARY")
+@
 
 
 %
@@ -540,12 +445,10 @@ objects of class {\tt glm}, such as \texttt{coef} or \texttt{summary} among othe
 The effect of a given CNV on case/control status (\texttt{casco} variable) can be fitted by typing
 
 
-\begin{Schunk}
-\begin{Sinput}
-> model1mul <- CNVassoc(casco ~ CNV.1, data = dataMLPA, model = "mul")
-> model2mul <- CNVassoc(casco ~ CNV.2, data = dataMLPA, model = "mul")
-\end{Sinput}
-\end{Schunk}
+<<echo=T>>=
+model1mul <- CNVassoc(casco ~ CNV.1, data = dataMLPA, model = "mul")
+model2mul <- CNVassoc(casco ~ CNV.2, data = dataMLPA, model = "mul")
+@
 
 
 
@@ -555,42 +458,16 @@ By default, a short summary is printed (similar to {\tt glm} objects)
 
 
 
-\begin{Schunk}
-\begin{Sinput}
-> model1mul
-\end{Sinput}
-\begin{Soutput}
-Call:  CNVassoc(formula = casco ~ CNV.1, data = dataMLPA, model = "mul") 
-
-Coefficients:
-         CNV0       CNV1       CNV2     
-CNVmult  0.0281709  0.5187565  1.0989109
-
-Number of individuals: 651 
-Number of estimated parameters: 3 
-Deviance: 883.03 
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+model1mul
+@
 
 
 
 
-\begin{Schunk}
-\begin{Sinput}
-> model2mul
-\end{Sinput}
-\begin{Soutput}
-Call:  CNVassoc(formula = casco ~ CNV.2, data = dataMLPA, model = "mul") 
-
-Coefficients:
-         CNV0        CNV1        CNV2      
-CNVmult   1.0520923   0.3122567  -0.0970782
-
-Number of individuals: 651 
-Number of estimated parameters: 3 
-Deviance: 876.396 
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=                                                          
+model2mul
+@
 
 
 
@@ -604,67 +481,17 @@ intervals are printed as well as its p-value.
 
 
 
-\begin{Schunk}
-\begin{Sinput}
-> summary(model1mul)
-\end{Sinput}
-\begin{Soutput}
-Call:
-CNVassoc(formula = casco ~ CNV.1, data = dataMLPA, model = "mul")
-
-Deviance: 883.0297 
-Number of parameters: 3 
-Number of individuals: 651 
-
-Coefficients:
-         OR lower.lim upper.lim     SE   stat pvalue
-CNV0 1.0000                                         
-CNV1 1.6333    1.1588    2.3020 0.1751 2.8017  0.005
-CNV2 2.9175    1.1359    7.4937 0.4813 2.2247  0.026
-
-(Dispersion parameter for  binomial  family taken to be  1 )
-
-
-Covariance between coefficients:
-     CNV0   CNV1   CNV2  
-CNV0 0.0094 0.0000 0.0000
-CNV1        0.0213 0.0000
-CNV2               0.2223
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+summary(model1mul)
+@
 
 
 
 
 
-\begin{Schunk}
-\begin{Sinput}
-> summary(model2mul)
-\end{Sinput}
-\begin{Soutput}
-Call:
-CNVassoc(formula = casco ~ CNV.2, data = dataMLPA, model = "mul")
-
-Deviance: 876.396 
-Number of parameters: 3 
-Number of individuals: 651 
-
-Coefficients:
-          OR lower.lim upper.lim      SE    stat pvalue
-CNV0  1.0000                                           
-CNV1  0.4772    0.2742    0.8304  0.2827 -2.6172  0.009
-CNV2  0.3169    0.1834    0.5477  0.2791 -4.1169  0.000
-
-(Dispersion parameter for  binomial  family taken to be  1 )
-
-
-Covariance between coefficients:
-     CNV0    CNV1    CNV2   
-CNV0  0.0613  0.0000  0.0000
-CNV1          0.0186 -0.0032
-CNV2                  0.0166
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+summary(model2mul)
+@
 
 
 By default, \texttt{CNVassoc} treats the response variable as a binary phenotype coded as 0/1. 
@@ -675,26 +502,11 @@ For instance, to deal with a normally distributed response variable, specify \te
 The following example presents the case of analyzing a quantitative normally distributed trait and adjusting the association by other covariates: 
 
 
-\begin{Schunk}
-\begin{Sinput}
-> mod <- CNVassoc(quanti ~ CNV.2 + cov, family = "gaussian", 
-+ data = dataMLPA, model = 'add', emsteps = 10)
-> mod
-\end{Sinput}
-\begin{Soutput}
-Call:  CNVassoc(formula = quanti ~ CNV.2 + cov, data = dataMLPA, model = "add",      family = "gaussian", emsteps = 10) 
-
-Coefficients:
-           CNV0        CNV1        CNV2      
-intercept  -0.1403761  -0.1403761  -0.1403761
-CNVadd     -0.0792367  -0.0792367  -0.0792367
-cov         0.0241877   0.0241877   0.0241877
-
-Number of individuals: 651 
-Number of estimated parameters: 4 
-Deviance: 1824.57 
-\end{Soutput}
-\end{Schunk}
+<<echo=T,keep.source=TRUE>>=
+mod <- CNVassoc(quanti ~ CNV.2 + cov, family = "gaussian", 
+data = dataMLPA, model = 'add', emsteps = 10)
+mod
+@
 
 
 
@@ -703,35 +515,9 @@ some preliminary steps using the EM algorithm makes it easier to maximize the li
 In general, it is enough to perform a few iterations (no more than 10). As usual, the model is then summarized by typing
 
 
-\begin{Schunk}
-\begin{Sinput}
-> summary(mod)
-\end{Sinput}
-\begin{Soutput}
-Call:
-CNVassoc(formula = quanti ~ CNV.2 + cov, data = dataMLPA, model = "add", 
-    family = "gaussian", emsteps = 10)
-
-Deviance: 1824.573 
-Number of parameters: 4 
-Number of individuals: 651 
-
-Coefficients:
-                beta lower.lim upper.lim       SE     stat pvalue
-(Intercept) -0.14038  -0.90687   0.62612  0.39108 -0.35895  0.720
-trend       -0.07924  -0.19714   0.03866  0.06015 -1.31722  0.188
-cov          0.02419  -0.05068   0.09906  0.03820  0.63321  0.527
-
-(Dispersion parameter estimation for  gaussian family is 0.9650261 )
-
-
-Covariance between coefficients:
-          intercept CNVadd  cov    
-intercept  0.1529   -0.0041 -0.0146
-CNVadd               0.0036 -0.0001
-cov                          0.0015
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+summary(mod)
+@
 
 
 Remember that for quantitative traits we obtain mean differences instead of odds ratios.
@@ -747,43 +533,19 @@ which requires an object of class {\tt CNVassoc} as the input. To specify the ty
 to \texttt{"Wald"} or \texttt{"LRT"}, respectively. For Gene 1,
 
 
-\begin{Schunk}
-\begin{Sinput}
-> CNVtest(model1mul, type = "Wald")
-\end{Sinput}
-\begin{Soutput}
-----CNV Wald test----
-Chi= 11.55332 (df= 2 ) , pvalue= 0.003099052 
-\end{Soutput}
-\begin{Sinput}
-> CNVtest(model1mul, type = "LRT")
-\end{Sinput}
-\begin{Soutput}
-----CNV Likelihood Ratio Test----
-Chi= 12.12081 (df= 2 ) , pvalue= 0.002333458 
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+CNVtest(model1mul, type = "Wald")
+CNVtest(model1mul, type = "LRT")
+@
 
 %
 and for Gene 2,
 %
 
-\begin{Schunk}
-\begin{Sinput}
-> CNVtest(model2mul, type = "Wald")
-\end{Sinput}
-\begin{Soutput}
-----CNV Wald test----
-Chi= 17.32966 (df= 2 ) , pvalue= 0.0001725492 
-\end{Soutput}
-\begin{Sinput}
-> CNVtest(model2mul, type = "LRT")
-\end{Sinput}
-\begin{Soutput}
-----CNV Likelihood Ratio Test----
-Chi= 18.75453 (df= 2 ) , pvalue= 8.462633e-05 
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+CNVtest(model2mul, type = "Wald")
+CNVtest(model2mul, type = "LRT")
+@
 
 %
 Other generic functions like {\tt logLik}, {\tt coef}, {\tt summary} or {\tt update} can be applied to an object of class {\tt CNVassoc} 
@@ -794,17 +556,9 @@ This can be done by using the argument \texttt{ref} when executing the \texttt{s
 as the reference category just type:
 
 
-\begin{Schunk}
-\begin{Sinput}
-> coef(summary(model1mul, ref = 2))
-\end{Sinput}
-\begin{Soutput}
-            OR lower.lim upper.lim        SE      stat      pvalue
-CNV1 1.0000000        NA        NA        NA        NA          NA
-CNV0 0.6122677 0.4344016 0.8629612 0.1751053 -2.801661 0.005084028
-CNV2 1.7863141 0.6790498 4.6990929 0.4934862  1.175624 0.239745070
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+coef(summary(model1mul, ref = 2))
+@
 
 
 
@@ -812,24 +566,10 @@ The same kind of results can be obtained if we assume an additive effect of CNV 
 {\tt model} argument to {\tt "add"}
 
 
-\begin{Schunk}
-\begin{Sinput}
-> model2add <- CNVassoc(casco ~ CNV.2, data = dataMLPA, model = "add")
-> model2add
-\end{Sinput}
-\begin{Soutput}
-Call:  CNVassoc(formula = casco ~ CNV.2, data = dataMLPA, model = "add") 
-
-Coefficients:
-           CNV0       CNV1       CNV2     
-intercept   0.932028   0.932028   0.932028
-CNVadd     -0.537731  -0.537731  -0.537731
-
-Number of individuals: 651 
-Number of estimated parameters: 2 
-Deviance: 877.061 
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+model2add <- CNVassoc(casco ~ CNV.2, data = dataMLPA, model = "add")
+model2add
+@
 
 
 Notice that under an additive CNV effect the structure of coefficients are different from the multiplicative CNV effect.
@@ -838,31 +578,9 @@ remain constant for every column (copy number status).
 
 % using summary
 
-\begin{Schunk}
-\begin{Sinput}
-> summary(model2add)
-\end{Sinput}
-\begin{Soutput}
-Call:
-CNVassoc(formula = casco ~ CNV.2, data = dataMLPA, model = "add")
-
-Deviance: 877.0606 
-Number of parameters: 2 
-Number of individuals: 651 
-
-Coefficients:
-           OR lower.lim upper.lim      SE    stat pvalue
-trend  0.5841    0.4530    0.7530  0.1296 -4.1477      0
-
-(Dispersion parameter for  binomial  family taken to be  1 )
-
-
-Covariance between coefficients:
-          intercept CNVadd 
-intercept  0.0374   -0.0228
-CNVadd               0.0168
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+summary(model2add)
+@
 
 
 
@@ -874,23 +592,9 @@ To compare two nested models we use the generic function {\tt anova} (NOTE: it i
 the {\tt CNVassoc} function).
 
 
-\begin{Schunk}
-\begin{Sinput}
-> anova(model2mul, model2add)
-\end{Sinput}
-\begin{Soutput}
---- Likelihood ratio test comparing 2 CNVassoc models:
-
-
-Model 1 call:  CNVassoc(formula = casco ~ CNV.2, data = dataMLPA, model = "mul") 
-
-Model 2 call:  CNVassoc(formula = casco ~ CNV.2, data = dataMLPA, model = "add") 
-
-Chi= 0.6645798 (df= 1 )  p-value= 0.4149477 
-
-  Note: the 2 models must be nested, and this function doesn't check this!
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+anova(model2mul, model2add)
+@
 
 
 The likelihood ratio test is performed. In this case the p-value is not significant, indicating that an additive CNV effect can be
@@ -936,13 +640,11 @@ The data is saved in an object called {\tt NeveData}.  This object is a list wit
 a dataframe containing 2621 rows and 54 columns with aCGH data (4 columns for the annotation and 50 log2ratio intensities). 
 The second component is a vector with the phenotype analyzed (strogen receptor posistivity). The data can be loaded as usual
 
-\begin{Schunk}
-\begin{Sinput}
-> data(NeveData)
-> intensities <- NeveData$data
-> pheno <- NeveData$pheno
-\end{Sinput}
-\end{Schunk}
+<<echo=T>>=
+data(NeveData)
+intensities <- NeveData$data
+pheno <- NeveData$pheno
+@
 
 %
 The calling can be performed using {\tt CGHcall} package by using the following instructions:
@@ -981,11 +683,9 @@ NeveCalled <- ExpandCGHcall(NeveCalled, seg.cghdata)
 This process takes about 20 minutes, but to avoid wasting your time, we have saved the final object of class {\tt cghCall} that can be loaded as
 %
 
-\begin{Schunk}
-\begin{Sinput}
-> data(NeveCalled)
-\end{Sinput}
-\end{Schunk}
+<<echo=T>>=
+data(NeveCalled)
+@
 
 %
 We can then obtain the posterior probabilities. {\tt CGHcall} function does not estimates the underlying number of copies for each 
@@ -993,32 +693,20 @@ segment but assigns the underlying status: loss, normal or gain. For each segmen
 probabilities corresponding to each of these three statuses. This is done by executing
 %
 
-\begin{Schunk}
-\begin{Sinput}
-> probs <- getProbs(NeveCalled)
-\end{Sinput}
-\end{Schunk}
+<<echo=T>>=
+probs <- getProbs(NeveCalled)
+@
 
 %
 This is a dataframe that looks like this:
 %
 
-\begin{Schunk}
-\begin{Sinput}
-> probs[1:5, 1:7]
-\end{Sinput}
-\begin{Soutput}
-                Clone Chromo BPstart   BPend X600MPE X600MPE.1 X600MPE.2
-RP11-82D16 RP11-82D16      1 2008651 2008651       0     0.973     0.027
-RP11-62M23 RP11-62M23      1 3367844 3367844       0     0.973     0.027
-RP11-111O5 RP11-111O5      1 4261844 4261844       0     0.973     0.027
-RMC01P070   RMC01P070      1 5918606 5918606       0     0.973     0.027
-RP11-51B4   RP11-51B4      1 6068980 6068980       0     0.973     0.027
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+probs[1:5, 1:7]
+@
 
 %
-This table can be read as following. The probability that the  individual {\tt X600MOE} is normal for the signature RP11-82D16 is 0.973, while the probability of having a gain is 0.027 and 0 of having a loss.
+This table can be read as following. The probability that the  individual {\tt X600MOE} is normal for the signature \Sexpr{probs[1,1]} is \Sexpr{probs[1,6]}, while the probability of having a gain is \Sexpr{probs[1,7]} and \Sexpr{probs[1,5]} of having a loss.
 
 In order to determine the regions that are recurrent or common among samples, we use the {\tt CGHregions} function that takes an object 
 of class {\tt cghCall} (e.g. object {\tt NeveCalled} in our case). This algorithm reduces the initial table to a smaller matrix that 
@@ -1035,33 +723,27 @@ NeveRegions <- CGHregions(NeveCalled)
 This process takes about 3 minutes. We have stored the result in the object {\tt NeveRegions} that can be loaded as usual
 %
 
-\begin{Schunk}
-\begin{Sinput}
-> data(NeveRegions)
-\end{Sinput}
-\end{Schunk}
+<<echo=T>>=
+data(NeveRegions)
+@
 
 %
 Now we have to get the posterior probabilities for each block/region. This can be done by typing
 %
 
-\begin{Schunk}
-\begin{Sinput}
-> probsRegions <- getProbsRegions(probs, NeveRegions, intensities)
-\end{Sinput}
-\end{Schunk}
+<<echo=T>>=
+probsRegions <- getProbsRegions(probs, NeveRegions, intensities)
+@
 
 %
 Finally, the association analysis between each region and the strogen receptor positivity can be analyzed by using the {\tt multiCNVassoc} 
 function. This function repeatedly calls {\tt CNVassoc} returning the p-value of association for each block/region
 %
 
-\begin{Schunk}
-\begin{Sinput}
-> pvals <- multiCNVassoc(probsRegions, formula = "pheno ~ CNV", model = "mult", 
-+ num.copies = 0:2, cnv.tol = 0.01)
-\end{Sinput}
-\end{Schunk}
+<<echo=T>>=
+pvals <- multiCNVassoc(probsRegions, formula = "pheno ~ CNV", model = "mult", 
+num.copies = 0:2, cnv.tol = 0.01)
+@
 
 %
 Notice that the arguments of {\tt multiCNVassoc} function are the same as those of {\tt CNVassoc}. In this example, we have set the 
@@ -1070,35 +752,18 @@ argument {\tt num.copies} equal to 0, 1, and 2 that corresponds to {\tt loss, no
 Multiple comparisons can be addressed by using the Benjamini \& Hochberg approach \cite{BenHoc95}. The function {\tt getPvalBH} produces the FDR-adjusted p-values
 %
 
-\begin{Schunk}
-\begin{Sinput}
-> pvalsBH <- getPvalBH(pvals)
-> head(pvalsBH)
-\end{Sinput}
-\begin{Soutput}
-  region         pval     pval.BH
-1    274 7.005210e-06 0.002746042
-2    257 7.904878e-05 0.006528060
-3    273 5.085502e-05 0.006528060
-4    275 5.496328e-05 0.006528060
-5    277 8.326607e-05 0.006528060
-6    363 1.446898e-04 0.009453070
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+pvalsBH <- getPvalBH(pvals)
+head(pvalsBH)
+@
 
 %
 Table 6 in \cite{GonSubEsc09} can be obtained by typing
 %
 
-\begin{Schunk}
-\begin{Sinput}
-> cumsum(table(cut(pvalsBH[, 2], c(-Inf, 1e-5, 1e-4, 1e-3, 1e-2, 0.05))))
-\end{Sinput}
-\begin{Soutput}
-  (-Inf,1e-05] (1e-05,0.0001] (0.0001,0.001]   (0.001,0.01]    (0.01,0.05] 
-             1              5             23             50             97 
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+cumsum(table(cut(pvalsBH[, 2], c(-Inf, 1e-5, 1e-4, 1e-3, 1e-2, 0.05))))
+@
 %
 
 
@@ -1116,50 +781,17 @@ with those obtained with the \texttt{CNVassoc} function.
 
 
 A first look at the data
-\begin{Schunk}
-\begin{Sinput}
-> data(A112)
-\end{Sinput}
-\end{Schunk}
+<<echo=TRUE>>=
+data(A112)
+@
 
-\begin{Schunk}
-\begin{Sinput}
-> head(A112)
-\end{Sinput}
-\end{Schunk}
+<<echo=TRUE,results=hide>>=
+head(A112)
+@
 \tiny
-\begin{Schunk}
-\begin{Soutput}
-          subject cohort        SNP0       SNP1       SNP2       SNP3       SNP4       SNP5       SNP6        SNP7
-1 WTCCC01-11474A1    58C -0.12647400 -0.1214220 -0.1423570  0.0449446  0.0259435  0.1351870  0.0746991  0.40581000
-2 WTCCC01-11474A2    58C -0.21574200  0.0265778 -0.0964269  0.0617480  0.1521360 -0.0445652 -0.3751110 -0.39122600
-3 WTCCC01-11474A3    58C -0.00150499  0.0820076 -0.2853430  0.1589580  0.0320422  0.1823220  0.0699921  0.29014900
-4 WTCCC01-11474A4    58C -0.05538290 -0.1691450 -0.0592800  0.0264289 -0.0208353 -0.2740840  0.0310302  0.20566300
-5 WTCCC01-11474A5    58C -0.12926900  0.2014540 -0.8474870 -0.2647420 -0.0502723 -0.2150250 -0.2254730  0.00162372
-6 WTCCC01-11474A6    58C -0.06209860  0.1826130  0.1245160 -0.1731720 -0.0870918 -0.0902743 -0.0634414 -0.80391700
-         SNP8       SNP9      SNP10      SNP11      SNP12       SNP13     SNP14      SNP15      SNP16      SNP17
-1 -0.18601600  0.0990579 -0.1969750  0.0448241 -0.0193997  0.13117800 -0.163383  0.1545760  0.0253607 -0.0560689
-2  0.10114500  0.1816270  0.0688791 -0.1166620  0.0217019 -0.05719720 -0.138044 -0.0554405 -0.0536655  0.1212250
-3  0.00885492 -0.0387201  0.1131100  0.0609800  0.2402140  0.23635400 -0.111235  0.5082330  0.0272966 -0.1532160
-4  0.12842100 -0.2219500 -0.2299260  0.0198905 -0.3210060  0.14955900 -0.534339 -0.7596830 -0.1940050 -0.1035420
-5  0.08069250  0.0562238 -0.0636589 -0.0433160 -0.5579070  0.13913000 -0.778225 -0.9224910  0.0343805 -0.0130905
-6  0.37845800 -0.1880560 -0.1368910 -0.0779523  0.1212290  0.00857489  0.179257 -0.0675581 -0.1812210 -0.1676740
-       SNP18     SNP19      SNP20      SNP21      SNP22      SNP23     SNP24     SNP25      SNP26       SNP27
-1 -0.0751385 -0.485160 -0.0288187 -0.1945410 -0.0456346  0.0929479 -0.222375 -0.368043 -0.1448800 -0.00706918
-2  0.1018410 -0.200404 -0.1797650 -0.0456029  0.2835270 -0.0813351 -0.143908 -0.105819 -0.2330800 -0.07807670
-3 -0.1135340  0.183407 -0.0960403  0.1230410 -0.1076840 -0.0180287  0.401502  0.240364 -0.1334340 -0.00942116
-4  0.1661650 -0.318173 -0.7149550 -0.7436040 -0.2483910 -0.2552810 -0.106774  0.203908  0.3008000 -0.24017000
-5  0.1538550 -0.589194 -0.4773230 -0.6345150  0.1788480 -0.4428020 -0.124996 -0.191220 -0.1863940 -0.08408520
-6  0.3261350 -0.199970  0.0908316  0.1268390  0.1787620  0.1138070 -0.228779 -0.409863  0.0208064  0.01472170
-       SNP28        SNP29      SNP30      SNP31      SNP32
-1  0.0356588 -0.346104000 -0.1318280  0.0140277  0.0583939
-2  0.0980952 -0.152811000  0.0728393 -0.2176910  0.0172098
-3 -0.0514102 -0.254315000  0.0708932 -0.1251580 -0.1050300
-4  0.1681400  0.298436000  0.1303020 -0.0139433  0.0432413
-5 -0.2589270 -0.000203031 -0.0516899  0.0381275 -0.0992932
-6  0.2187790 -0.384239000 -0.0265277 -0.2410430 -0.0577618
-\end{Soutput}
-\end{Schunk}
+<<echo=FALSE>>=
+head(A112)
+@
 
 \normalsize
 
@@ -1172,11 +804,9 @@ The following steps to obtain peak intensities are the same as in \cite{CNVtools
 
 To begin, load \texttt{CNVtools} package, since some function from it will be used to execute some previous steps in order to mimic the 
 analysis performed in \cite{CNVtools-vignette}:
-\begin{Schunk}
-\begin{Sinput}
-> library(CNVtools)
-\end{Sinput}
-\end{Schunk}
+<<echo=TRUE>>=
+library(CNVtools)
+@
 
 
 
@@ -1184,41 +814,33 @@ analysis performed in \cite{CNVtools-vignette}:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The raw signal from all probes of the data is subtracted typing
-\begin{Schunk}
-\begin{Sinput}
-> raw.signal <- as.matrix(A112[, -c(1, 2)])
-> dimnames(raw.signal)[[1]] <- A112$subject
-\end{Sinput}
-\end{Schunk}
+<<echo=TRUE>>=
+raw.signal <- as.matrix(A112[, -c(1, 2)])
+dimnames(raw.signal)[[1]] <- A112$subject
+@
 
 Then, the unidimensional data is summarized using principal component techinque from raw signal data
-\begin{Schunk}
-\begin{Sinput}
-> pca.signal <- apply.pca(raw.signal)
-\end{Sinput}
-\end{Schunk}
+<<echo=TRUE>>=
+pca.signal <- apply.pca(raw.signal)
+@
 
 In the article on \texttt{CNVtools} \cite{CNVtools} it is suggested not to use this summarized intensity, \texttt{pca.signal}, directly. Instead, the probability of occurrence of each of the 3 copy number status values (loss, normal and gain) is estimated after fitting a normal-mixture model to
 \texttt{pca.signal} using the function \texttt{CNVtest.binary} from CNVtools package.
-\begin{Schunk}
-\begin{Sinput}
-> ncomp <- 3
-> batches <- factor(A112$cohort)
-> sample <- factor(A112$subject)
-> fit.pca <- CNVtest.binary(signal = pca.signal, sample = sample, 
-+ batch = batches, ncomp = ncomp, n.H0 = 3, n.H1 = 0, model.var = "~ strata(cn)")
-\end{Sinput}
-\end{Schunk}
+<<echo=TRUE>>=
+ncomp <- 3
+batches <- factor(A112$cohort)
+sample <- factor(A112$subject)
+fit.pca <- CNVtest.binary(signal = pca.signal, sample = sample, 
+batch = batches, ncomp = ncomp, n.H0 = 3, n.H1 = 0, model.var = "~ strata(cn)")
+@
 
 \noindent and after this, a linear discriminant analysis on raw signal data and these probabilities is performed
-\begin{Schunk}
-\begin{Sinput}
-> pca.posterior <- as.matrix((fit.pca$posterior.H0)[, paste("P", 
-+ seq(1:ncomp), sep = "")])
-> dimnames(pca.posterior)[[1]] <- (fit.pca$posterior.H0)$subject
-> ldf.signal <- apply.ldf(raw.signal, pca.posterior)
-\end{Sinput}
-\end{Schunk}
+<<echo=TRUE>>=
+pca.posterior <- as.matrix((fit.pca$posterior.H0)[, paste("P", 
+seq(1:ncomp), sep = "")])
+dimnames(pca.posterior)[[1]] <- (fit.pca$posterior.H0)$subject
+ldf.signal <- apply.ldf(raw.signal, pca.posterior)
+@
 
 
 
@@ -1230,28 +852,10 @@ a normal mixture model is fitted using function  \texttt{cnv} as already explain
 A possible batch effect in inferring copy number status has been considered, as mentioned in \cite{CNVtools}.
 Therefore, and in order to better mimic the example as presented in CNVtools vignette \cite{CNVtools-vignette}, 
 copy number status is inferred taking into account the batches, simply by incorporating an argument to function \texttt{cnv}, called \texttt{batches}:
-\begin{Schunk}
-\begin{Sinput}
-> CNV <- cnv(ldf.signal, batches = batches, num.class = 3, mix = "mclust")
-> CNV
-\end{Sinput}
-\begin{Soutput}
-Inferred copy number variant by a quantitative signal
-   Method: function Mclust {package: mclust}  
-
--. Number of individuals: 2593 
--. Copies 1, 2, 3 
--. Estimated means:
-      CNV 1   CNV 2  CNV 3
-58C -1.9703 -0.2361 0.7752
-NBS -2.1398 -0.1708 0.9074
--. Estimated variances:
-     CNV 1  CNV 2  CNV 3
-58C 0.0941 0.0941 0.0941
-NBS 0.0847 0.0847 0.0847
--. Estimated proportions: 0.1524, 0.4973, 0.3503 
-\end{Soutput}
-\end{Schunk}
+<<echo=TRUE, keep.source=TRUE>>=
+CNV <- cnv(ldf.signal, batches = batches, num.class = 3, mix = "mclust")
+CNV
+@
 
 In this case, the method ''mclust'' has been used in order to make the mixture model converge.
 Thus, a normal mixture is fitted separately per batch, and copy number status probability is updated pooling the copy number frequency
@@ -1264,7 +868,9 @@ curves and mean lines for each batch (see figure \ref{fig-MLPAcnvbatch})\\
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics{CNVassoc_vignette-056}
+<<echo=F,fig=T>>=
+plot(CNV)
+@
 \caption{\small Signal distribution and inferred number of copies by batch}
 \label{fig-MLPAcnvbatch}
 \end{center}
@@ -1281,37 +887,38 @@ Now, the same batch variable will be the response as in \cite{CNVtools-vignette}
 an association model considering and additive effect test will be fitted. Since there are only 2 batches, a logistic 
 regression will be performed. To compute the Likelihood Ratio Test on CNV:
 
-\begin{Schunk}
-\begin{Sinput}
-> trait <- ifelse(A112$cohort == "58C", 0, 1)
-> fit <- CNVassoc(trait ~ CNV, model = "add")
-> CNVtest(fit,"LRT")
-\end{Sinput}
-\begin{Soutput}
-----CNV Likelihood Ratio Test----
-Chi= 1.81261 (df= 1 ) , pvalue= 0.1781955 
-\end{Soutput}
-\end{Schunk}
+<<echo=TRUE>>=
+trait <- ifelse(A112$cohort == "58C", 0, 1)
+fit <- CNVassoc(trait ~ CNV, model = "add")
+CNVtest(fit,"LRT")
+@
 
+<<echo=FALSE>>=
+# by default CNVtest.binary assumes: model.var = "~ strata(batch, cn)", model.disease = "~ cn" (trend CNV effect, and different vars per batch).
+fit.cnvtools <- CNVtest.binary(signal = ldf.signal, sample = sample, 
+batch = batches, disease.status = trait, ncomp = ncomp, n.H0 = 3, n.H1 = 1,
+model.var = "~cn")
+chi.cnvtools <- -2*(fit.cnvtools$model.H0$lnL - fit.cnvtools$model.H1$lnL)
+@
 
-This results in a $\chi^2 =$ 1.81 which does not differ greatly from the one given 
-in CNVtools vignette \cite{CNVtools-vignette} (1.55), neither being statistically significant. \\
+This results in a $\chi^2 =$ \Sexpr{round(CNVtest(fit,"LRT")$stat,2)} which does not differ greatly from the one given 
+in CNVtools vignette \cite{CNVtools-vignette} (\Sexpr{round(chi.cnvtools,2)}), neither being statistically significant. \\
 
 And if a multiplicative model is assumed, 
-\begin{Schunk}
-\begin{Sinput}
-> fit <- CNVassoc(trait ~ CNV)
-> CNVtest(fit, "LRT")
-\end{Sinput}
-\begin{Soutput}
-----CNV Likelihood Ratio Test----
-Chi= 2.860044 (df= 2 ) , pvalue= 0.2393036 
-\end{Soutput}
-\end{Schunk}
+<<echo=TRUE>>=
+fit <- CNVassoc(trait ~ CNV)
+CNVtest(fit, "LRT")
+@
 
+<<echo=FALSE>>=
+fit.cnvtools <- CNVtest.binary(signal = ldf.signal, sample = sample,
+batch = batches, disease.status = trait,ncomp = 3, n.H0 = 3, n.H1 = 1,
+model.disease = "~as.factor(cn)")
+chi.cnvtools  <- -2*(fit.cnvtools$model.H0$lnL - fit.cnvtools$model.H1$lnL)
+@
 
-\noindent a $\chi^2$ of 2.86 is obtained, similar to that in CNVtools-vignette \cite{CNVtools-vignette} 
-(3.11). Again, neither is statistically significant.
+\noindent a $\chi^2$ of \Sexpr{round(CNVtest(fit,"LRT")$stat,2)} is obtained, similar to that in CNVtools-vignette \cite{CNVtools-vignette} 
+(\Sexpr{round(chi.cnvtools,2)}). Again, neither is statistically significant.
 
 
 %%%%%%%%%%%%
@@ -1367,7 +974,7 @@ copy number uncertainty $Q$ and number of cases $N$.}\label{table-time}
 
 \begin{figure}[ht] 
 \begin{center}
-\includegraphics{./figures/main_figure_new.pdf}
+\includegraphics{main_figure_new.pdf}
 \caption{\small Power achieved by CNVassoc and CNVtools, depending on sample size, inferring copy number uncertainty ($Q$), 
 degree of differencial bias ($\Delta \mu$) and sample size ($N$) under an scenario where the power to decect 
 associated CNV is 90\% if no inferring copy number uncertainty was present.}
@@ -1377,7 +984,7 @@ associated CNV is 90\% if no inferring copy number uncertainty was present.}
 
 \begin{figure}[ht] 
 \begin{center}
-\includegraphics{./figures/main_fugure_Q.pdf}
+\includegraphics{main_fugure_Q.pdf}
 \caption{\small Power achieved by CNVassoc and CNVtools, with different values of copy number uncertainty ($Q$) and sample size ($N$) 
 under an scenario where the power to decect associated CNV is 90\% if no inferring copy number uncertainty was present.}
 \label{fig-Q}
@@ -1408,67 +1015,29 @@ of 500 cases and 500 controls, and 100 SNPs. For all of the SNPs the probabiliti
 simulating having been obtained from IMPUTE.  The names of the SNPs have been masked, as also the name of the disease. \\
 
 Let's load the data. There are 2 data frames, one for cases and the other for controls
-\begin{Schunk}
-\begin{Sinput}
-> data(SNPTEST)
-> dim(cases)
-\end{Sinput}
-\begin{Soutput}
-[1]  100 1505
-\end{Soutput}
-\begin{Sinput}
-> dim(controls)
-\end{Sinput}
-\begin{Soutput}
-[1]  100 1505
-\end{Soutput}
-\end{Schunk}
+<<echo=TRUE>>=
+data(SNPTEST)
+dim(cases)
+dim(controls)
+@
 
 \normalsize
-\begin{Schunk}
-\begin{Sinput}
-> cases[1:10,1:11]
-\end{Sinput}
-\end{Schunk}
+<<echo=TRUE,results=hide>>=
+cases[1:10,1:11]
+@
 \scriptsize
-\begin{Schunk}
-\begin{Soutput}
-   V1 V2    V3 V4 V5           V6           V7           V8          V9          V10          V11
-1   1  1  1000  A  T 0.9959626125 0.0023620260 0.0016753615 0.992634932 0.0003516265 7.013442e-03
-2   2  2  2000  A  T 0.0765213302 0.0073893102 0.9160893596 0.027811741 0.0086429180 9.635453e-01
-3   3  3  3000  A  T 0.0050670931 0.0020722897 0.9928606172 0.009646064 0.0026860830 9.876679e-01
-4   4  4  4000  A  T 0.9920997158 0.0003108851 0.0075893991 0.012288000 0.9815783730 6.133627e-03
-5   5  5  5000  A  T 0.0048796013 0.0283927739 0.9667276249 0.990459821 0.0092745162 2.656632e-04
-6   6  6  6000  A  T 0.0029449045 0.9965970143 0.0004580812 0.993531065 0.0023760942 4.092840e-03
-7   7  7  7000  A  T 0.9844537961 0.0147126387 0.0008335652 0.003635098 0.9945822710 1.782631e-03
-8   8  8  8000  A  T 0.0002854996 0.0019421881 0.9977723123 0.005000345 0.0024962428 9.925034e-01
-9   9  9  9000  A  T 0.0052202003 0.0037747406 0.9910050592 0.003845385 0.0011333510 9.950213e-01
-10 10 10 10000  A  T 0.0145463505 0.9603995477 0.0250541018 0.010122825 0.9898094554 6.771937e-05
-\end{Soutput}
-\end{Schunk}
+<<echo=FALSE>>=
+cases[1:10,1:11]
+@
 
 \normalsize
-\begin{Schunk}
-\begin{Sinput}
-> controls[1:10,1:11]
-\end{Sinput}
-\end{Schunk}
+<<echo=TRUE,results=hide>>=
+controls[1:10,1:11]
+@
 \scriptsize
-\begin{Schunk}
-\begin{Soutput}
-   V1 V2    V3 V4 V5           V6          V7          V8           V9         V10         V11
-1   1  1  1000  A  T 9.822425e-01 0.003358295 0.014399242 0.9910275077 0.001110983 0.007861509
-2   2  2  2000  A  T 1.333922e-02 0.969099360 0.017561421 0.0070884674 0.028424366 0.964487167
-3   3  3  3000  A  T 3.989599e-03 0.004256366 0.991754036 0.0014208265 0.984644304 0.013934870
-4   4  4  4000  A  T 3.406932e-03 0.007333515 0.989259553 0.0006075389 0.997842168 0.001550293
-5   5  5  5000  A  T 9.881081e-01 0.010474830 0.001417104 0.9828012172 0.011371321 0.005827462
-6   6  6  6000  A  T 3.595319e-03 0.990430376 0.005974305 0.0003284885 0.995963534 0.003707978
-7   7  7  7000  A  T 6.072451e-05 0.997494894 0.002444382 0.0034642921 0.989251393 0.007284314
-8   8  8  8000  A  T 6.322546e-03 0.006265613 0.987411841 0.0016109147 0.006935266 0.991453820
-9   9  9  9000  A  T 3.073608e-04 0.007901964 0.991790675 0.0160832317 0.981741626 0.002175142
-10 10 10 10000  A  T 9.748969e-03 0.978622828 0.011628203 0.0076508106 0.973590298 0.018758891
-\end{Soutput}
-\end{Schunk}
+<<echo=FALSE>>=
+controls[1:10,1:11]
+@
 
 
 \normalsize
@@ -1481,12 +1050,12 @@ The structure of the data is as follows:
 
 \end{itemize}
 
-For example, the first individual in the data set of cases has probabilities of 0.996, 0.0024 and
-0.0017 of having the genotypes for the first SNP of AA,
-AT and TT respectively.
-And the second individual has a probabilities of 0.0278, 0.0086 and
-0.9635 of having the genotypes for the second SNP of AA,
-AT and TT respectively.\\
+For example, the first individual in the data set of cases has probabilities of \Sexpr{round(cases[1,6],4)}, \Sexpr{round(cases[1,7],4)} and
+\Sexpr{round(cases[1,8],4)} of having the genotypes for the first SNP of \Sexpr{paste(cases[1,4],cases[1,4],sep="")},
+\Sexpr{paste(cases[1,4],cases[1,5],sep="")} and \Sexpr{paste(cases[1,5],cases[1,5],sep="")} respectively.
+And the second individual has a probabilities of \Sexpr{round(cases[2,9],4)}, \Sexpr{round(cases[2,10],4)} and
+\Sexpr{round(cases[2,11],4)} of having the genotypes for the second SNP of \Sexpr{paste(cases[2,4],cases[2,4],sep="")},
+\Sexpr{paste(cases[2,4],cases[2,5],sep="")} and \Sexpr{paste(cases[2,5],cases[2,5],sep="")} respectively.\\
 
 Of course, cases and controls must have the same number of rows, because the $i$-th row of cases and the $i$-th row of controls correspond
 to the same SNP.\\
@@ -1495,18 +1064,16 @@ First in order to use \texttt{CNVassoc} certain preliminary data management step
 The goal is to have one matrix of probabilities with 3 columns corresponding to the 3 genotypes and 1000 individuals (500 cases plus 500 controls),
 for each of the 100 SNPs.
 
-\begin{Schunk}
-\begin{Sinput}
-> nSNP <- nrow(cases)
-> probs <- lapply(1:nSNP, function(i) {
-+   snpi.cases <- matrix(as.double(cases[i, 6:ncol(cases)]), ncol = 3,
-+ byrow = TRUE)
-+   snpi.controls <- matrix(as.double(controls[i, 6:ncol(controls)]),
-+ ncol = 3, byrow = TRUE)
-+   return(rbind(snpi.cases, snpi.controls))
-+ })
-\end{Sinput}
-\end{Schunk}
+<<echo=TRUE>>=
+nSNP <- nrow(cases)
+probs <- lapply(1:nSNP, function(i) {
+  snpi.cases <- matrix(as.double(cases[i, 6:ncol(cases)]), ncol = 3,
+byrow = TRUE)
+  snpi.controls <- matrix(as.double(controls[i, 6:ncol(controls)]),
+ncol = 3, byrow = TRUE)
+  return(rbind(snpi.cases, snpi.controls))
+})
+@
 
 Now \texttt{probs} is a list of 100 components, each one containing the probability matrix of each SNP, and the first 500 rows of each matrix
 refers to the cases and the rest to the controls.
@@ -1514,48 +1081,27 @@ refers to the cases and the rest to the controls.
 In this point, we can use \texttt{multiCNVassoc} as shown in section \ref{section-CNV from aCGH}, to perform an association
 test of each SNP with case control status.
 But first, a casecontrol variable must be defined, which, in this example, will be a simple vector of 500 ones and 500 zeros.
-\begin{Schunk}
-\begin{Sinput}
-> casecon <- rep(1:0, c(500, 500))
-\end{Sinput}
-\end{Schunk}
+<<echo=TRUE>>=
+casecon <- rep(1:0, c(500, 500))
+@
 
 Now, we have the data ready to fit a model. For example, to compute the association p-value between every SNP and case control status
 assuming an additive effect:
-\begin{Schunk}
-\begin{Sinput}
-> pvals <- multiCNVassoc(probs, formula = "casecon~CNV", model = "add",
-+ num.copies = 0:2, cnv.tol = 0.001)
-\end{Sinput}
-\end{Schunk}
+<<echo=TRUE>>=
+pvals <- multiCNVassoc(probs, formula = "casecon~CNV", model = "add",
+num.copies = 0:2, cnv.tol = 0.001)
+@
 
 And, as in section \ref{section-CNV from aCGH}, it is necessary to correct for multiple tests:
-\begin{Schunk}
-\begin{Sinput}
-> pvalsBH <- getPvalBH(pvals)
-> head(pvalsBH)
-\end{Sinput}
-\begin{Soutput}
-  region       pval   pval.BH
-1      1 0.29083371 0.8400958
-2      3 0.13235295 0.8400958
-3      5 0.08296301 0.8400958
-4      6 0.18826664 0.8400958
-5      7 0.24967318 0.8400958
-6      9 0.30321197 0.8400958
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+pvalsBH <- getPvalBH(pvals)
+head(pvalsBH)
+@
 
 A frecuency tabulation of how many SNP achieve different levels of significance is obtained by:
-\begin{Schunk}
-\begin{Sinput}
-> table(cut(pvalsBH[, 2], c(-Inf, 1e-3, 1e-2, 0.05, 0.1, Inf)))
-\end{Sinput}
-\begin{Soutput}
-(-Inf,0.001] (0.001,0.01]  (0.01,0.05]   (0.05,0.1]   (0.1, Inf] 
-           0            0            2            7           91 
-\end{Soutput}
-\end{Schunk}
+<<echo=T>>=
+table(cut(pvalsBH[, 2], c(-Inf, 1e-3, 1e-2, 0.05, 0.1, Inf)))
+@
 
 From these results, no SNP appears to be associated with case control status.
 
@@ -1589,28 +1135,17 @@ Data for 4000 individuals has been simulated under the following scenario:
 \item CNV intensity signal standard deviation of 0.4 for each copy,
 \item an additive effect with a risk ratio of 1.7 for each increment in copy number status,
 \item incidence of 0.12 of relapsing among individuals with zero copies
-(which means a probability of 0.6737 of having at least one relapse).
+(which means a probability of \Sexpr{round(1-dpois(0,1.12),4)} of having at least one relapse).
 \end{itemize}
-\begin{Schunk}
-\begin{Sinput}
-> set.seed(123456)
-> rr <- 1.7
-> incid0 <- 0.12
-> lambda <- c(incid0, incid0 * rr, incid0 * rr^2)
-> dsim <- simCNVdataPois(n = 4000, mu.surrog = 0:2, sd.surrog = rep(0.4, 3),
-+ w = c(0.25, 0.5, 0.25), lambda = lambda)
-> head(dsim)
-\end{Sinput}
-\begin{Soutput}
-     resp cnv     surrog
-446     0   1  0.1626554
-2214    0   2  1.1287803
-3535    1   3  1.4992945
-3579    1   3  1.9024086
-678     0   1 -0.2533025
-2813    2   2  0.4879491
-\end{Soutput}
-\end{Schunk}
+<<echo=TRUE>>=
+set.seed(123456)
+rr <- 1.7
+incid0 <- 0.12
+lambda <- c(incid0, incid0 * rr, incid0 * rr^2)
+dsim <- simCNVdataPois(n = 4000, mu.surrog = 0:2, sd.surrog = rep(0.4, 3),
+w = c(0.25, 0.5, 0.25), lambda = lambda)
+head(dsim)
+@
 
 The result is a data frame with 3 variables, and as many rows as individuals. The description of these variables is:
 \begin{itemize}
@@ -1621,56 +1156,29 @@ The result is a data frame with 3 variables, and as many rows as individuals. Th
 
 First an object of class \texttt{cnv} is obtained fitting a normal mixture to the intensity signal, as in section ...
 Note that to make the normal mixture converge ''mclust'' method is specified:
-\begin{Schunk}
-\begin{Sinput}
-> CNV <- cnv(dsim$surrog, mix = "mclust")
-> CNV
-\end{Sinput}
-\begin{Soutput}
-Inferred copy number variant by a quantitative signal
-   Method: function Mclust {package: mclust}  
-
--. Number of individuals: 4000 
--. Copies 1, 2, 3 
--. Estimated means: 0.0141, 0.9774, 1.9636 
--. Estimated variances: 0.1631, 0.1631, 0.1631 
--. Estimated proportions: 0.2479, 0.4804, 0.2717 
-
-
--. Note: number of classes has been selected using the best BIC
-\end{Soutput}
-\end{Schunk}
+<<echo=TRUE>>=
+CNV <- cnv(dsim$surrog, mix = "mclust")
+CNV
+@
 
 Then, an association model with CNV and the phenotype assuming an additive effect is performed as usual,
 but specifying \texttt{family="poisson"} in the call to function \texttt{CNVassoc}:
-\begin{Schunk}
-\begin{Sinput}
-> fit <- CNVassoc(resp ~ CNV, data = dsim, family = "poisson", model = "add")
-> coef(summary(fit))
-\end{Sinput}
-\begin{Soutput}
-            RR lower.lim upper.lim         SE     stat pvalue
-trend 1.613005  1.450285  1.793982 0.05425561 8.811971      0
-\end{Soutput}
-\end{Schunk}
+<<echo=TRUE>>=
+fit <- CNVassoc(resp ~ CNV, data = dsim, family = "poisson", model = "add")
+coef(summary(fit))
+@
 
 The same generic functions are appliable as for normal and binary traits. Note that, now, \texttt{summary} prints ''RR'' instead of
 ''OR''.
 
 We can compare this to the ''gold standard'' model, where the phenotype is regressed to the true copy number status:
-\begin{Schunk}
-\begin{Sinput}
-> fit.gold <- glm(resp ~ cnv, data = dsim, family = "poisson")
-> table.gold <- c(exp(c(coef(fit.gold)[2], confint(fit.gold)[2,])), 
-+ coef(summary(fit.gold))[2,4])
-> names(table.gold) <- c("RR", "lower", "upper", "p-value")
-> table.gold
-\end{Sinput}
-\begin{Soutput}
-          RR        lower        upper      p-value 
-1.701183e+00 1.547603e+00 1.871468e+00 5.752637e-28 
-\end{Soutput}
-\end{Schunk}
+<<echo=TRUE>>=
+fit.gold <- glm(resp ~ cnv, data = dsim, family = "poisson")
+table.gold <- c(exp(c(coef(fit.gold)[2], confint(fit.gold)[2,])), 
+coef(summary(fit.gold))[2,4])
+names(table.gold) <- c("RR", "lower", "upper", "p-value")
+table.gold
+@
 
 The confidence interval of the estimate contains the true relative risk, and the ''gold standard'' model gives similar results as the one fitted
 using \texttt{CNVassoc} function (latent class model). \\
@@ -1679,38 +1187,24 @@ using \texttt{CNVassoc} function (latent class model). \\
 Because the data has been simulated from a fixed scenario, we may be interested in comparing with an estimation made 
 under a naive strategy, i.e. compared to fitting a standard log-linear Poisson model assigning the most probable copy number to each individual (best
 guess approach):
-\begin{Schunk}
-\begin{Sinput}
-> fit.naive <- glm(resp ~ CNV, data = dsim, family = "poisson")
-> table.naive <- c(exp(c(coef(fit.naive)[2], confint(fit.naive)[2,])), 
-+ coef(summary(fit.naive))[2,4])
-> names(table.naive) <- c("RR", "lower", "upper", "p-value")
-> table.naive
-\end{Sinput}
-\begin{Soutput}
-          RR        lower        upper      p-value 
-1.555179e+00 1.415058e+00 1.710412e+00 6.646768e-20 
-\end{Soutput}
-\end{Schunk}
+<<echo=TRUE>>=
+fit.naive <- glm(resp ~ CNV, data = dsim, family = "poisson")
+table.naive <- c(exp(c(coef(fit.naive)[2], confint(fit.naive)[2,])), 
+coef(summary(fit.naive))[2,4])
+names(table.naive) <- c("RR", "lower", "upper", "p-value")
+table.naive
+@
 
 To sum up, table \ref{table-compare} gives the relative risk estimated under different models (gold standard, latent class and naive):
-% latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Wed Nov 07 13:20:36 2012
-\begin{table}[ht]
-\begin{center}
-\begin{tabular}{rrrr}
-  \hline
- & RR & lower & upper \\ 
-  \hline
-Gold & 1.70 & 1.55 & 1.87 \\ 
-  LC & 1.61 & 1.45 & 1.79 \\ 
-  Naive & 1.56 & 1.42 & 1.71 \\ 
-   \hline
-\end{tabular}
-\caption{Comparison of RR estimated by the gold standard model, a latent class model (LC) and naive approach}
-\label{table-compare}
-\end{center}
-\end{table}
+<<echo=FALSE,results=tex>>=
+taula <- rbind(
+table.gold[1:3],
+coef(summary(fit))[,c("RR","lower.lim","upper.lim")],
+table.naive[1:3])
+rownames(taula)<-c("Gold","LC","Naive")
+xtable(taula,"Comparison of RR estimated by the gold standard model, a latent class model (LC) and naive approach",label="table-compare")
+@
+
 
 %%%%%%%%%%% weibull %%%%%%%%%%%
 \subsection{Weibull distributed phenotype}
@@ -1744,33 +1238,22 @@ The following scenario has been simulated for 5000 individuals:
 \item disease incidence equal to 0.05 (per person-year) among the population with zero copies. 
 \item proportion of non-censored individuals (who suffered the disease during the study) of 10\%. 
 \end{itemize}
-\begin{Schunk}
-\begin{Sinput}
-> set.seed(123456)
-> n <- 5000
-> w <- c(0.25, 0.5, 0.25)
-> mu.surrog <- 0:2
-> sd.surrog <- rep(0.4, 3)
-> hr <- 1.5
-> incid0 <- 0.05
-> lambda <- c(incid0, incid0 * hr, incid0 * hr^2)
-> shape <- 1
-> scale <- lambda^(-1/shape)
-> perc.obs <- 0.10
-> time.cens <- qweibull(perc.obs, mean(shape), mean(scale))
-> dsim <- simCNVdataWeibull(n, mu.surrog, sd.surrog, w, lambda, shape, time.cens)
-> head(dsim)
-\end{Sinput}
-\begin{Soutput}
-         resp cens cnv     surrog
-739  1.482852    0   1  0.1436988
-1282 1.482852    0   2  0.8899417
-1339 1.482852    0   2  1.6149953
-872  1.482852    0   1 -0.2586166
-3718 1.482852    0   2  1.2688898
-123  1.482852    0   1 -0.9089759
-\end{Soutput}
-\end{Schunk}
+<<echo=TRUE>>=
+set.seed(123456)
+n <- 5000
+w <- c(0.25, 0.5, 0.25)
+mu.surrog <- 0:2
+sd.surrog <- rep(0.4, 3)
+hr <- 1.5
+incid0 <- 0.05
+lambda <- c(incid0, incid0 * hr, incid0 * hr^2)
+shape <- 1
+scale <- lambda^(-1/shape)
+perc.obs <- 0.10
+time.cens <- qweibull(perc.obs, mean(shape), mean(scale))
+dsim <- simCNVdataWeibull(n, mu.surrog, sd.surrog, w, lambda, shape, time.cens)
+head(dsim)
+@
 
 The result is a data frame with 4 variables (one additional variable, compared to the Poisson example, that corresponds to censoring indicator), 
 and, as before, as many rows as individuals:
@@ -1783,40 +1266,19 @@ and, as before, as many rows as individuals:
 
 As before, the CNV signal is fitted under a normal mixture distribution with function \texttt{cnv}
 and specifying the ''mclust'' method:
-\begin{Schunk}
-\begin{Sinput}
-> CNV<-cnv(dsim$surrog,mix="mclust")
-> CNV
-\end{Sinput}
-\begin{Soutput}
-Inferred copy number variant by a quantitative signal
-   Method: function Mclust {package: mclust}  
-
--. Number of individuals: 5000 
--. Copies 1, 2, 3 
--. Estimated means: 0.0081, 0.9805, 1.9833 
--. Estimated variances: 0.1663, 0.1663, 0.1663 
--. Estimated proportions: 0.2439, 0.4947, 0.2615 
-
-
--. Note: number of classes has been selected using the best BIC
-\end{Soutput}
-\end{Schunk}
+<<echo=TRUE>>=
+CNV<-cnv(dsim$surrog,mix="mclust")
+CNV
+@
 
 Then, an association model with CNV and the phenotype assuming an additive effect is performed as usual,
 this time specifying \texttt{family="weibull"}, and introducing the censored status using function \texttt{Surv}
 in the left hand side of the formula argument:
 \texttt{CNVassoc} function:
-\begin{Schunk}
-\begin{Sinput}
-> fit<-CNVassoc(Surv(resp,cens)~CNV, data=dsim, family="weibull", model="add")
-> coef(summary(fit))
-\end{Sinput}
-\begin{Soutput}
-            HR lower.lim upper.lim         SE     stat       pvalue
-trend 1.385556  1.205619  1.592348 0.07097498 4.594595 4.335896e-06
-\end{Soutput}
-\end{Schunk}
+<<echo=TRUE>>=
+fit<-CNVassoc(Surv(resp,cens)~CNV, data=dsim, family="weibull", model="add")
+coef(summary(fit))
+@
 
 Again, the same generic functions are applicable as for normal, binary traits and poisson distributed phenotype. 
 Note that, now, \texttt{summary} prints ''HR'' instead of ''OR'' (binary) or ''RR'' (poisson).

@@ -8,7 +8,8 @@ Simulate of CNV and a right censored Weibull distributed trait
 This function simulates intensity for a CNV and a time to event response (followed-up cohort study design) for different scenarios 
 }
 \usage{
-simCNVdataWeibull(n, mu.surrog, sd.surrog, w, lambda, shape, time.cens = Inf, cnv.random = FALSE)
+simCNVdataWeibull(n, mu.surrog, sd.surrog, w, lambda, shape, time.cens = Inf, 
+                  cnv.random = FALSE)
 }
 
 \arguments{
@@ -46,7 +47,8 @@ maf<-0.3
 hr<-1.5
 set.seed(123)
 simData<-simCNVdataWeibull(n=4000, mu.surrog=c(0,0.5,1), sd.surrog=rep(0.15,3), 
-         w=c((1-maf)^2,2*maf*(1-maf), maf^2), lambda=0.05*c(1,hr,hr^2), shape=rep(1,3), time.cens=1.5, cnv.random = FALSE)
+         w=c((1-maf)^2,2*maf*(1-maf), maf^2), lambda=0.05*c(1,hr,hr^2), shape=rep(1,3), 
+         time.cens=1.5, cnv.random = FALSE)
 CNV<-cnv(simData$surrog,mix.method="EMmixt")
 getQualityScore(CNV,type="CNVtools")  
 mod<-CNVassoc(Surv(resp, cens)~CNV,data=simData,family="weibull")

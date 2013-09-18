@@ -7,7 +7,9 @@ plots the intensities of a CNV univariate signal data
 This function creates a plot with probe intensity
 }
 \usage{
-plotSignal(x, my.colors = c("black", "red", "blue"), ylab = "Peak Intensity", xlab = c("individuals", "Phenotype"), case.control = NULL, cex.leg = 0.6, dens.bw = "nrd0", dens.adjust = 1, n = 0, ...)
+plotSignal(x, my.colors = c("black", "red", "blue"), ylab = "Peak Intensity", 
+      xlab = c("individuals", "Phenotype"), case.control = NULL, cex.leg = 0.6, 
+      dens.bw = "nrd0", dens.adjust = 1, n = 0, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

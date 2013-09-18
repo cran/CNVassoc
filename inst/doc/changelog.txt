@@ -1,3 +1,13 @@
+v2.0.1
+2013-09-18
+- new mantainer Isaac Subirana <isubirana@imim.es> instead of Juan R González <jrgonzalez@creal.cat>
+- all data sets have been moved to CNVassocData new package.
+- fixed: fastCNVassoc example data set requires parallel package.
+
+v2.0
+2013-07-30
+- new function fastCNVassoc to analize GWAS much quicker using C functions. It works for case-control and cohort studies.
+
 v1.5
 2012-11-06
 - multiCNVassoc: new arguments added (num.copies and cnv.tol).

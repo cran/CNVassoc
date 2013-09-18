@@ -16,7 +16,9 @@
 
 
 \usage{
-  CNVassoc(formula, data, subset, na.action, model = "multiplicative", family = "binomial", tol = 1e-06, max.iter = 30, emsteps = 0, verbose = FALSE, coef.start, sigma.start, alpha.start=1)
+  CNVassoc(formula, data, subset, na.action, model = "multiplicative", 
+           family = "binomial", tol = 1e-06, max.iter = 30, emsteps = 0, 
+           verbose = FALSE, coef.start, sigma.start, alpha.start=1)
 }
 
 \arguments{

@@ -8,7 +8,8 @@ Simulation of CNV in a case-control study design
 This function simulates intensity for a CNV within cases and control groups for different scenarios
 }
 \usage{
-simCNVdataCaseCon(n0, n1, w0, or, mu.surrog0, sd.surrog0, mu.surrog1 = mu.surrog0, sd.surrog1 = sd.surrog0, random = TRUE)
+simCNVdataCaseCon(n0, n1, w0, or, mu.surrog0, sd.surrog0, mu.surrog1 = mu.surrog0, 
+    sd.surrog1 = sd.surrog0, random = TRUE)
 }
 
 
