@@ -46,7 +46,7 @@ library(survival)
 maf<-0.3
 hr<-1.5
 set.seed(123)
-simData<-simCNVdataWeibull(n=4000, mu.surrog=c(0,0.5,1), sd.surrog=rep(0.15,3), 
+simData<-simCNVdataWeibull(n=3000, mu.surrog=c(0,0.5,1), sd.surrog=rep(0.15,3), 
          w=c((1-maf)^2,2*maf*(1-maf), maf^2), lambda=0.05*c(1,hr,hr^2), shape=rep(1,3), 
          time.cens=1.5, cnv.random = FALSE)
 CNV<-cnv(simData$surrog,mix.method="EMmixt")

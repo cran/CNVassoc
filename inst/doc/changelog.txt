@@ -1,3 +1,8 @@
+v2.1
+2015-02-26
+- new function, fastCNVinter, to perform epistasis (CNVxCNV or SNPxSNP) association analyses.
+- DESCRIPTION text updated.
+
 v2.0.1
 2013-09-18
 - new mantainer Isaac Subirana <isubirana@imim.es> instead of Juan R González <jrgonzalez@creal.cat>

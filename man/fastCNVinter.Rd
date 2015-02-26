@@ -1,15 +1,15 @@
-\name{fastCNVassoc}
-\alias{fastCNVassoc}
+\name{fastCNVinter}
+\alias{fastCNVinter}
                               
-\title{Fast association analysis between a CNV or imputed SNPs and phenotype for case-control and cohort GWA studies.}
+\title{Fast epistasis (pairwise interaction) analysis between two CNV or imputed SNPs for case-control and cohort GWA studies.}
 
 \description{
-  This function performs an association analyses with several genetic variants with uncertainty (CNVs or imputed SNPs) and a response, maybe adjusting for covariates (e.g. clinical covariates, stratification, ...). It uses the Newthon-Raphson procedure with analytic likelihood derivatives and it has written in C language to speed up the process making feasible to analyse hundreds of thousands of variants, It also incorporates the possibility to use several cores to make calculations even faster.
+  This function assess the association of the interaction of two genetic variants measured with uncertainty (CNVs or imputed SNPs) and a response, maybe adjusting for covariates (e.g. clinical covariates, stratification, ...). It uses the Newthon-Raphson procedure with analytic likelihood derivatives and it has written in C language to speed up the process making feasible to analyse hundreds of thousands of variants, It also incorporates the possibility to use several cores to make calculations even faster.
 }
 
 
 \usage{
-  fastCNVassoc(probs, formula, data, model = "additive",
+  fastCNVinter(probs, formula, data, model = "additive",
     family = "binomial", nclass = 3, colskip = 5, tol = 1e-06, max.iter = 30, 
     verbose = FALSE, multicores=0)
 }
@@ -33,9 +33,9 @@
 \value{  
 
  A data.frame with the following variables:
- 
-  - variant: consecutive integer from one to the number of analyzed variants (CNV or imputed SNPs) in the same order as in the probs matrix.
 
+  - pair: indexes corresponding to the pair of genetic variants (CNV or imputed SNPs) in the same order as in the probs matrix.
+  
   - beta coefficient: log-Odds Ratio for binary response or log-Hazard Ratio for time-to-event response.
 
   - se: standard error of beta coefficient.
@@ -66,9 +66,12 @@
 
 \references{
 
+Subirana I, González JR. Interaction association analysis of imputed SNPs in case control and cohort studies. \emph{Genet Epidemiol}, 2015 Jan 22; doi: 10.1002/gepi.21883. [Epub ahead of print] \cr
+
 Subirana I, González JR. Genetic Association Analysis and Meta-Analysis of Imputed SNPs in Longitudinal Studies. \emph{Genet Epidemiol}, 2013 Jul;37(5):465-77.   \cr
 
 Gonzalez JR, Subirana I, Escaramis G, Peraza S, Caceres A, Estivill X and Armengol L. Accounting for uncertainty when assessing association between copy number and disease: a latent class model. \emph{BMC Bioinformatics}, 2009;10:172. 
+
 
 }
 
@@ -76,7 +79,7 @@ Gonzalez JR, Subirana I, Escaramis G, Peraza S, Caceres A, Estivill X and Armeng
 
 \seealso{
 
-\code{\link{CNVassoc}}, \code{\link{multiCNVassoc}}, \code{\link{CNVtest}}
+\code{\link{fastCNVassoc}}
 
 }
 
@@ -102,7 +105,7 @@ covar2<-factor(sample(1:3,N,replace=TRUE),labels=c("A","B","C")) # categorical c
 
 # run with 6 cores. Under Windows OS, multicore must be <=1.
 system.time(
-res<-fastCNVassoc(fileprobs,resp~covar1+covar2,family="binomial",multicore=6)
+res<-fastCNVinter(fileprobs,resp~covar1+covar2,family="binomial",multicore=6)
 )
 res
 
@@ -112,9 +115,9 @@ times <- rexp(N,1)
 cens <- rbinom(N,1,0.8)
 
 system.time(
-res<-fastCNVassoc(fileprobs,Surv(times,cens)~covar1+covar2,family="weibull",multicore=6)
+res2<-fastCNVinter(fileprobs,Surv(times,cens)~covar1+covar2,family="weibull",multicore=6)
 )
-res
+res2
 
 
 }

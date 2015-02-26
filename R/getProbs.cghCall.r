@@ -3,16 +3,18 @@ function (x)
 {
     if (!inherits(x, "cghCall"))
         stop("object must be of class 'cghCall'")
-    Clone <- featureNames(x)
-    Chromo <- chromosomes(x)
-    BPstart <- bpstart(x)
-    BPend <- bpend(x)
-    Calls <- calls(x)
-    Probloss <- probloss(x)
-    Probnorm <- probnorm(x)
-    Probgain <- probgain(x)
+    requireNamespace("Biobase", quietly = TRUE)
+    requireNamespace("CGHbase", quietly = TRUE)
+    Clone <- Biobase::featureNames(x)
+    Chromo <- CGHbase::chromosomes(x)
+    BPstart <- CGHbase::bpstart(x)
+    BPend <- CGHbase::bpend(x)
+    Calls <- CGHbase::calls(x)
+    Probloss <- CGHbase::probloss(x)
+    Probnorm <- CGHbase::probnorm(x)
+    Probgain <- CGHbase::probgain(x)
     colnam <- c(colnames(Probloss), colnames(Probnorm), colnames(Probgain))
-    if (is.null(probamp(x))) {
+    if (is.null(CGHbase::probamp(x))) {
         allprob <- c()
         ncl <- ncol(Probnorm)
         for (i in 1:ncl) {
@@ -24,7 +26,7 @@ function (x)
         }
     }
     else {
-        Probamp <- probamp(x)
+        Probamp <- CGHbase::probamp(x)
         colnam <- c(colnam, colnames(Probamp))
         allprob <- c()
         ncl <- ncol(Probnorm)

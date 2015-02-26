@@ -1,5 +1,12 @@
 useDynLib(CNVassoc)
 
+import(
+CNVassocData, 
+mixdist, 
+mclust, 
+survival
+)
+
 export(
 cnv,
 is.cnv,
@@ -17,7 +24,8 @@ simCNVdataCaseCon,
 simCNVdataPois,
 simCNVdataWeibull,
 plotSignal,
-fastCNVassoc
+fastCNVassoc,
+fastCNVinter
 )
 
 S3method(print, cnv)
