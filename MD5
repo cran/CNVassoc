@@ -1,5 +1,5 @@
-03f4138eb4ef8316585415e04711a015 *DESCRIPTION
-5d4609cc986b21f7658c909c39aadae2 *NAMESPACE
+c84b4199f7ac2dc703782dfa4c9f7004 *DESCRIPTION
+b67df8339b84f79fd20c45ae9f960c39 *NAMESPACE
 3e803cef4c2244f3e852facff076f90e *R/CNVassoc.R
 94c46187b4e037c409721bbd345e2245 *R/CNVtest.R
 83b7b83e822dbc9d9e4727a5f3beb8b3 *R/EMWeibull.R
@@ -74,12 +74,11 @@ e8598bf667c61ee62c21fa0f8af00fc6 *R/translate.r
 40f67cc608c344c75dcfee3ae834a49e *R/vector2matrix.R
 2c3805d11eb96eb94a5079e606e9b37b *R/weibull.fit.R
 c2ce940b6656611a133a82aec1064c5e *R/z[.cnv.R
-4776ba0e3d7c95e6ca4bda1290dac578 *build/vignette.rds
-561364dc822f0147024b71ed15d857ab *inst/doc/CNVassoc_vignette.R
-dba14647e27a32adf64c72930a1b6f7d *inst/doc/CNVassoc_vignette.Rnw
-d349e7ca10fe5314806453069b68782b *inst/doc/CNVassoc_vignette.bib
-d61153d0222d845f1b508c42be3ffc96 *inst/doc/CNVassoc_vignette.pdf
-17f7e5e822cbe0273c73dd812f51b492 *inst/doc/changelog.txt
+ca01e612483062320297f00f1fbd23ee *build/vignette.rds
+7c67e1650b31b28bd20c81fa6f93e910 *inst/doc/CNVassoc_vignette.R
+74eb552053d147b1288d0ee9deca43ec *inst/doc/CNVassoc_vignette.Rnw
+a1a37a95a384c36b54d12215c645d9d7 *inst/doc/CNVassoc_vignette.pdf
+9d7db5a2f2903c5931955cd41cebe746 *inst/doc/changelog.txt
 5fbd4f7081b0058f5f079fe9ac5dba6b *man/CNVassoc-internal.Rd
 2bc048562430906754f72a1aa40e88d3 *man/CNVassoc.Rd
 ea119098f08fd354a7e25b76b53ed456 *man/CNVtest.Rd
@@ -121,7 +120,7 @@ dc38448f96eb3646716fd18ac288ccd2 *src/maxC.c
 947ef0c1c3428ddf2d71fccc912129de *src/outerC.c
 7bb6124fb0cd454d0d901528f15b1e51 *src/sampleC.c
 fb3820ce58585cb6505517e71d691fae *src/simcensrespC.c
-dba14647e27a32adf64c72930a1b6f7d *vignettes/CNVassoc_vignette.Rnw
+74eb552053d147b1288d0ee9deca43ec *vignettes/CNVassoc_vignette.Rnw
 d349e7ca10fe5314806453069b68782b *vignettes/CNVassoc_vignette.bib
 27e21e587fb92e960483ed90d4322be2 *vignettes/fig1.pdf
 fd62ba2e691e4e3ca679625763f681e5 *vignettes/main_figure_new.pdf

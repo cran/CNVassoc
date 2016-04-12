@@ -1,3 +1,7 @@
+v2.2
+2016-04-12
+- NAMESPACE file: importFrom some functions.
+
 v2.1
 2015-02-26
 - new function, fastCNVinter, to perform epistasis (CNVxCNV or SNPxSNP) association analyses.

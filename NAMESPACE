@@ -28,6 +28,11 @@ fastCNVassoc,
 fastCNVinter
 )
 
+importFrom("graphics", "abline", "axis", "barplot", "layout", "legend", "lines", "locator", "par", "plot", "points", "polygon")
+
+importFrom("stats", "as.formula", "coef", "contrasts", "cor", "dbinom", "density", "dnorm", "dpois", "dweibull", "glm", "glm.control", "integrate", "logLik", "model.matrix", "model.response", "p.adjust", "p.adjust.methods", "pchisq", "pnorm", "printCoefmat", "pweibull", "qnorm", "rbinom", "rmultinom", "rnorm", "rpois", "rweibull", "sd")
+
+
 S3method(print, cnv)
 S3method(plot, cnv)
 
